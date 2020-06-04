@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NoMuggle - To record my tech and my life</title>
+    <link>https://www.nommugel.com/</link>
+    <description>Recent content on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>xxxy</copyright>
+    <lastBuildDate>Mon, 04 Nov 2019 08:56:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.nommugel.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Code-Audit-Challenges write up</title>
+      <link>https://www.nommugel.com/post/code-audit-challenges-solution/</link>
+      <pubDate>Mon, 04 Nov 2019 08:56:00 +0800</pubDate>
+      
+      <guid>https://www.nommugel.com/post/code-audit-challenges-solution/</guid>
+      <description>github上面的代码审计“小”题目。 代码审计和开发不同的是，代码审计需要异常关注程序语言的各种 小边界，各种开发所遗漏的语言安全特性。 这里将</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://www.nommugel.com/about/</link>
+      <pubDate>Fri, 19 Jul 2019 10:44:23 +0800</pubDate>
+      
+      <guid>https://www.nommugel.com/about/</guid>
+      <description>Email: xuxiaoyuspallow@gmail.com</description>
+    </item>
+    
+  </channel>
+</rss>
