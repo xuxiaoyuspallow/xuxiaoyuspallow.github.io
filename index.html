@@ -78,12 +78,12 @@
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
         <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
       </a><a href="/tags/">
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/about/">
         <li class="mobile-menu-item">About</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
 </nav>
@@ -100,11 +100,11 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/post/">Archives</a>
       </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
         <a class="menu-item-link" href="/tags/">Tags</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
       </li>
   </ul>
 </nav>
@@ -116,10 +116,12 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/code-audit-challenges-solution/">Code-Audit-Challenges write up</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/code-audit-challenges-solution/">Code-Audit-Challenges解题记录</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2019-11-04 </span>
-      
+      <div class="post-category">
+          <a href="/categories/ctf/"> CTF </a>
+          </div>
     </div>
   </header>
   
@@ -129,6 +131,94 @@
     </div>
     <div class="read-more">
       <a href="/post/code-audit-challenges-solution/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/node.js%E4%BD%BF%E7%94%A8%E5%88%9D%E4%BD%93%E9%AA%8C/">week 1</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-11-04 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      实际上是上周的工作总结。总体上时间效率和工作效率都不高，主要是工作时间太短，数了数番茄钟才16个, 希望这周可以达到我的目标,达到60个番茄钟
+    </div>
+    <div class="read-more">
+      <a href="/post/node.js%E4%BD%BF%E7%94%A8%E5%88%9D%E4%BD%93%E9%AA%8C/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/sqli-lab-notes/">Sqli Lab解题记录</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-17 </span>
+      <div class="post-category">
+          <a href="/categories/ctf/"> CTF </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p>Sqli-lab 是一个供人练习sql注入的一个项目。虽然现在实战中sql注入已经非常少了，但是sql注入还是经常出现在各种CTF比赛中,
+为了愉快的打CTF，垒实sqli的基础还是有必要的。</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/sqli-lab-notes/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/travis-ci-walk-through/">使用travisCI自动发布你的hugo博客</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-06-11 </span>
+      <div class="post-category">
+          <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/"> 工具介绍 </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      众所周知， github有免费的github page可供用户放置静态页面。呃，对于更新不那么频繁的用户来说， github page可远远比自己搭的服务器 简
+    </div>
+    <div class="read-more">
+      <a href="/post/travis-ci-walk-through/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/sentence-similarity/">基于语义网络和语料库统计的句子相似度算法</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-05-13 </span>
+      <div class="post-category">
+          <a href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/"> 统计学习 </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <hr>
+<p>这篇论文是3年前参加kaggle的比赛<a href="https://www.kaggle.com/c/quora-question-pairs">quora-question-pairs</a>的时候找来跑的，由于时间复杂度过高
+加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。</p>
+<p>2020/06/04 整理博客时更新</p>
+<hr>
+<p>最近看到一篇有趣的论文，<a href="http://ants.iis.sinica.edu.tw/3BkMJ9lTeWXTSrrvNoKNFDxRm3zFwRR/55/Sentence%20Similarity%20Based%20on%20Semantic%20Nets%20and%20corpus%20statistics.pdf">Sentence Similarity Based on Semantic Nets and Corpus Statistics</a>.</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/sentence-similarity/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

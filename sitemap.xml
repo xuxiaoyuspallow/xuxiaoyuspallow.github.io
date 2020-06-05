@@ -2,7 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.nommugel.com/categories/</loc>
+    <lastmod>2019-11-04T08:56:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.nommugel.com/post/code-audit-challenges-solution/</loc>
+    <lastmod>2019-11-04T08:56:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.nommugel.com/categories/ctf/</loc>
     <lastmod>2019-11-04T08:56:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -23,6 +37,27 @@
   </url>
   
   <url>
+    <loc>https://www.nommugel.com/tags/security/</loc>
+    <lastmod>2019-11-04T08:56:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.nommugel.com/tags/</loc>
+    <lastmod>2019-11-04T08:56:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.nommugel.com/post/node.js%E4%BD%BF%E7%94%A8%E5%88%9D%E4%BD%93%E9%AA%8C/</loc>
+    <lastmod>2019-11-04T08:13:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.nommugel.com/about/</loc>
     <lastmod>2019-07-19T10:44:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -30,13 +65,36 @@
   </url>
   
   <url>
-    <loc>https://www.nommugel.com/categories/</loc>
+    <loc>https://www.nommugel.com/post/sqli-lab-notes/</loc>
+    <lastmod>2019-07-17T22:54:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.nommugel.com/tags/</loc>
+    <loc>https://www.nommugel.com/post/travis-ci-walk-through/</loc>
+    <lastmod>2019-06-11T00:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.nommugel.com/categories/%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2019-06-11T00:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.nommugel.com/post/sentence-similarity/</loc>
+    <lastmod>2017-05-13T00:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.nommugel.com/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2017-05-13T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
