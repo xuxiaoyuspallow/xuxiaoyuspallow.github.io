@@ -7,19 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>xxxy</copyright>
-    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Nov 2019 08:56:00 +0800</lastBuildDate>
     
 	<atom:link href="https://www.nommugel.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>security</title>
-      <link>https://www.nommugel.com/categories/security/</link>
-      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.nommugel.com/categories/security/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>CTF</title>
