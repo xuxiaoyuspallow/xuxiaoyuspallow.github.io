@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>leetcode解题记录 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="2. Add Two Numbers 问题描述： You may assume the two numbers do not contain any leading zero, except the number 0 itself. Example 1 2 3 Input: (2 -&amp;gt; 4 -&amp;gt; 3) &#43; (5 -&amp;gt; 6 -&amp;gt; 4) Output: 7 -&amp;gt; 0 -&amp;gt; 8 Explanation: 342 &#43; 465 = 807. 大概是说给定两个链表表示的非负整" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/leetcode%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="leetcode解题记录" />
+<meta property="og:description" content="2. Add Two Numbers 问题描述： You may assume the two numbers do not contain any leading zero, except the number 0 itself. Example 1 2 3 Input: (2 -&gt; 4 -&gt; 3) &#43; (5 -&gt; 6 -&gt; 4) Output: 7 -&gt; 0 -&gt; 8 Explanation: 342 &#43; 465 = 807. 大概是说给定两个链表表示的非负整" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/leetcode%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-02-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-02-06T00:00:00+00:00" />
+
+<meta itemprop="name" content="leetcode解题记录">
+<meta itemprop="description" content="2. Add Two Numbers 问题描述： You may assume the two numbers do not contain any leading zero, except the number 0 itself. Example 1 2 3 Input: (2 -&gt; 4 -&gt; 3) &#43; (5 -&gt; 6 -&gt; 4) Output: 7 -&gt; 0 -&gt; 8 Explanation: 342 &#43; 465 = 807. 大概是说给定两个链表表示的非负整"><meta itemprop="datePublished" content="2018-02-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-02-06T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2130">
+<meta itemprop="keywords" content="leetcode," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="leetcode解题记录"/>
+<meta name="twitter:description" content="2. Add Two Numbers 问题描述： You may assume the two numbers do not contain any leading zero, except the number 0 itself. Example 1 2 3 Input: (2 -&gt; 4 -&gt; 3) &#43; (5 -&gt; 6 -&gt; 4) Output: 7 -&gt; 0 -&gt; 8 Explanation: 342 &#43; 465 = 807. 大概是说给定两个链表表示的非负整"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">leetcode解题记录</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-02-01 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 算法与数据结构 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#2-add-two-numbers">2. Add Two Numbers</a></li>
+    <li><a href="#3-longest-substring-without-repeating-characters">3. Longest Substring Without Repeating Characters</a></li>
+    <li><a href="#5-longest-palindromic-substring">5. Longest Palindromic Substring</a></li>
+    <li><a href="#6-zigzag-conversion">6. ZigZag Conversion</a></li>
+    <li><a href="#15-3sum">15. 3Sum</a></li>
+    <li><a href="#16-3sum-closest">16. 3Sum Closest</a></li>
+    <li><a href="#17-letter-combinations-of-a-phone-number">17. Letter Combinations of a Phone Number</a></li>
+    <li><a href="#92-reverse-linked-list-ii">92. Reverse Linked List II</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="2-add-two-numbers">2. Add Two Numbers</h2>
+<p>问题描述：</p>
+<!-- raw HTML omitted -->
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p>Example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
+Output: 7 -&gt; 0 -&gt; 8
+Explanation: 342 + 465 = 807.
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<p>大概是说给定两个链表表示的非负整数，返回他们相加后的结果，同样是用链表表示。
+这道题还是比较直观的，将链表的每个对应节点相加并且保存进位就好了。以下是我的
+实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        &#34;&#34;&#34;
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        &#34;&#34;&#34;
+        final_res = res = ListNode(0)
+        carry = 0
+        while (l1 or l2 or carry):
+            if not l1:
+                l1 = ListNode(0)
+            if not l2:
+                l2 = ListNode(0)
+            current_sum = l1.val + l2.val + carry
+            if current_sum &gt;= 10:
+                res.val = current_sum - 10
+                carry = 1
+            else:
+                res.val = current_sum
+                carry = 0
+            l1 = l1.next
+            l2 = l2.next
+            if (l1 or l2 or carry):
+                res.next = ListNode(0)
+                res = res.next
+        return final_res
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-longest-substring-without-repeating-characters">3. Longest Substring Without Repeating Characters</h2>
+<p>问题描述：</p>
+<!-- raw HTML omitted -->
+<p>Examples:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Given &#34;abcabcbb&#34;, the answer is &#34;abc&#34;, which the length is 3.
+
+Given &#34;bbbbb&#34;, the answer is &#34;b&#34;, with the length of 1.
+
+Given &#34;pwwkew&#34;, the answer is &#34;wke&#34;, with the length of 3. Note
+that the answer must be a substring, &#34;pwke&#34; is a subsequence and not a substring.
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<p>找出一个字符串的最大不含重复字母的子字符串。直观的，我们可以用暴力搜索的方法，就是找出
+该字符串的每一个连续非重复子字符串，然后算一下哪个子字符串最大。但是这样的时间复杂度是
+O(n^2),没有被accept。转念想想因为是连续的子字符串，那么想象一个窗口在字符串上移动，一点点
+的增大，记录最大的值就是我们的最大无重复字符的子字符串了。
+算法描述如下:</p>
+<ol start="0">
+<li>开始时窗口长度为0</li>
+<li>窗口右端加1，若无重复，跳转到1，若有重复，跳转到2，右端到达尾端时停止</li>
+<li>窗口左端加1，若有重复，跳转到2，若无重复，跳转到1，左端到达尾端时停止</li>
+</ol>
+<p>在此期间的最长不重复子字符串便被记录下来了。
+为了更直观一点，举个例子：
+假如输入是pwwkew，那么输出应该便是3(wke或kew),以下是窗口的变化情况和最大值的记录情况:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">window     max_length
+p              1
+pw             2
+pww            2
+ww             2
+w              2
+wk             2
+wke            3
+wkew           3
+kew            3
+</code></pre></td></tr></table>
+</div>
+</div><p>下面是我的代码实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        &#34;&#34;&#34;
+        CostTime: 60mins
+        :type s: str
+        :rtype: int
+        pwwkew
+        &#34;&#34;&#34;
+        if not s:
+            return 0
+        l, r = 0, 1
+        max_sub = 0
+        last_window = &#39;&#39;
+        while l &lt; len(s):
+            if s[r-1:r] not in last_window:
+                last_window += s[r-1:r]
+                r += 1
+                max_sub = max(max_sub,len(last_window))
+            else:
+                l += 1
+                last_window = s[l:r-1]
+        return max_sub
+</code></pre></td></tr></table>
+</div>
+</div><p>后来翻评论区，看到有大神用相同的思路实现的更简洁的代码，学到了学到了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution:
+    # @return an integer
+    def lengthOfLongestSubstring(self, s):
+        start = maxLength = 0
+        usedChar = {}
+        for i in range(len(s)):
+            if s[i] in usedChar and start &lt;= usedChar[s[i]]:
+                start = usedChar[s[i]] + 1
+            else:
+                maxLength = max(maxLength, i - start + 1)
+
+            usedChar[s[i]] = i
+
+        return maxLength
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5-longest-palindromic-substring">5. Longest Palindromic Substring</h2>
+<p>问题描述：</p>
+<!-- raw HTML omitted -->
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
+Input: &#34;babad&#34;
+
+Output: &#34;bab&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>Note: &ldquo;aba&rdquo; is also a valid answer.</p>
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Input: &#34;cbbd&#34;
+Output: &#34;bb&#34;
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution(object):
+    &#39;&#39;&#39;
+    cost:90mins
+    &#39;&#39;&#39;
+    def helper(self,l, r, s):
+        while (l &gt;= 0 and r&lt;len(s) and s[l] == s[r]):
+            l -= 1
+            r += 1
+        return s[l+1:r]
+
+    def longestPalindrome(self, s):
+        &#34;&#34;&#34;
+        :type s: str
+        :rtype: str
+        sbabadsss,
+        cbbd
+        &#34;&#34;&#34;
+        if not s:
+            return 0
+        max_palindrome = &#39;&#39;
+        for i in range(len(s)):
+            max_palindrome = max(self.helper(i, i ,s),self.helper(i, i+ 1, s),max_palindrome)
+        return max_palindrome
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="6-zigzag-conversion">6. ZigZag Conversion</h2>
+<p>问题描述：</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">P   A   H   N
+A P L S I I G
+Y   I   R
+</code></pre></td></tr></table>
+</div>
+</div><p>And then read line by line: &ldquo;PAHNAPLSIIGYIR&rdquo;
+Write the code that will take a string and make this conversion given a number of rows:</p>
+<p><code>string convert(string text, int nRows);</code>
+convert(&ldquo;PAYPALISHIRING&rdquo;, 3) should return &ldquo;PAHNAPLSIIGYIR&rdquo;.</p>
+<!-- raw HTML omitted -->
+<p>将一个字符串按&quot;zip_zag&quot;方式排列后，再按行取，得到新的字符串。
+这道题目的zip_zag是个坑，因为给出的例子是三行这么特殊的例子，我开始的时候以为
+转折的地方总是一个字母，后来才发现不是。下面是&quot;zip_zag&quot;的规律：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/*n=numRows
+Δ=2n-2    1                           2n-1                         4n-3
+Δ=        2                     2n-2  2n                    4n-4   4n-2
+Δ=        3               2n-3        2n+1              4n-5       .
+Δ=        .           .               .               .            .
+Δ=        .       n+2                 .           3n               .
+Δ=        n-1 n+1                     3n-3    3n-1                 5n-5
+Δ=2n-2    n                           3n-2                         5n-4
+*/
+</code></pre></td></tr></table>
+</div>
+</div><p>知道了规律，实现代码就容易了，值得注意的是当numRows为1或者2时需要特殊处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution(object):
+    def convert(self, s, numRows):
+        &#34;&#34;&#34;
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        &#34;&#34;&#34;
+        start = 0
+        temp = []
+        res = &#39;&#39;
+        if numRows == 1 or numRows==2:
+            zip_zag = numRows
+        else:
+            zip_zag = numRows - 2
+        while start &lt; len(s):
+            temp.append(s[start:start+numRows])
+            start += numRows
+            if s[start:start+zip_zag]:
+                temp.append(s[start:start+zip_zag])
+                start += zip_zag
+        for i in range(numRows):
+            for j,v in enumerate(temp):
+                if j % 2 == 0:
+                    if len(v) &gt; i:
+                        res += v[i]
+                else:
+                    if numRows == 1or numRows == 2:
+                        if len(v) &gt; i:
+                            res += v[i]
+                    elif i!=0 and i!=numRows-1 and len(v) &gt; zip_zag - i:
+                        res += v[zip_zag - i]
+        return res
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="15-3sum">15. 3Sum</h2>
+<p>问题描述：</p>
+<!-- raw HTML omitted -->
+<p>Note: The solution set must not contain duplicate triplets.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">For example, given array S = [-1, 0, 1, 2, -1, -4],
+A solution set is:
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution(object):
+    def threeSum(self, nums):
+        &#34;&#34;&#34;
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        &#34;&#34;&#34;
+        result = []
+        l, r = 0, len(nums) - 1
+        nums.sort()
+        for i in range(len(nums)):
+            if i &gt; 0 and nums[i] == nums[i-1]:
+                continue
+            l, r = i + 1, len(nums) - 1
+            while l &lt; r:
+                s = nums[i] + nums[l] + nums[r]
+                if s &lt; 0:
+                    l += 1
+                elif s &gt; 0:
+                    r -= 1
+                else:
+                    result.append([nums[i],nums[l],nums[r]])
+                    while l &lt; r and nums[l] == nums[l + 1]:
+                        l += 1
+                    while l &lt; r and nums[r] == nums[r - 1]:
+                        r -= 1
+                    l += 1
+                    r -= 1
+        return result
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="16-3sum-closest">16. 3Sum Closest</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution(object):
+    def threeSumClosest(self, nums, target):
+        &#34;&#34;&#34;
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        &#34;&#34;&#34;
+        result = float(&#39;inf&#39;)
+        l, r = 0, len(nums) - 1
+        nums.sort()
+        for i in range(len(nums)):
+            if i &gt; 0 and nums[i] == nums[i-1]:
+                continue
+            l, r = i + 1, len(nums) - 1
+            while l &lt; r:
+                s = nums[i] + nums[l] + nums[r]
+                if s &lt; target:
+                    result = s if abs(s - target) &lt; abs(result - target) else result
+                    l += 1
+                elif s &gt; target:
+                    result = s if abs(s - target) &lt; abs(result - target) else result
+                    r -= 1
+                else:
+                    result = s if abs(s - target) &lt; abs(result - target) else result
+                    while l &lt; r and nums[l] == nums[l + 1]:
+                        l += 1
+                    while l &lt; r and nums[r] == nums[r - 1]:
+                        r -= 1
+                    l += 1
+                    r -= 1
+        return result
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="17-letter-combinations-of-a-phone-number">17. Letter Combinations of a Phone Number</h2>
+<p>问题描述：</p>
+<!-- raw HTML omitted -->
+<p>A mapping of digit to letters (just like on the telephone buttons) is given below.
+<img src="https://raw.githubusercontent.com/xuxiaoyuspallow/xuxiaoyuspallow.github.io/master/static/images/%5Bleetcode%5D17.%20Letter%20Combinations%20of%20a%20Phone%20Number/200px-Telephone-keypad2.svg.png" alt="phone"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Input:Digit string &#34;23&#34;
+Output: [&#34;ad&#34;, &#34;ae&#34;, &#34;af&#34;, &#34;bd&#34;, &#34;be&#34;, &#34;bf&#34;, &#34;cd&#34;, &#34;ce&#34;, &#34;cf&#34;].
+</code></pre></td></tr></table>
+</div>
+</div><p>Note:
+Although the above answer is in lexicographical order, your answer could be in any order you want.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Solution(object):
+    def letterCombinations(self, digits):
+        &#34;&#34;&#34;
+        :type digits: str
+        :rtype: List[str]
+        &#34;&#34;&#34;
+        rf = {&#39;2&#39;:[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;],&#39;3&#39;:[&#39;d&#39;,&#39;e&#39;,&#39;f&#39;],&#39;4&#39;:[&#39;g&#39;,&#39;h&#39;,&#39;i&#39;],&#39;5&#39;:[&#39;j&#39;,&#39;k&#39;,&#39;l&#39;],&#39;6&#39;:[&#39;m&#39;,&#39;n&#39;,&#39;o&#39;],&#39;7&#39;:[&#39;p&#39;,&#39;q&#39;,&#39;r&#39;,&#39;s&#39;],&#39;8&#39;:[&#39;t&#39;,&#39;u&#39;,&#39;v&#39;],&#39;9&#39;:[&#39;w&#39;,&#39;x&#39;,&#39;y&#39;,&#39;z&#39;]}
+        result = []
+        temp = []
+        if len(digits) == 1:
+            return rf[digits]
+        for i,v in enumerate(digits):
+            if v not in rf:
+                return []
+            if i &lt; len(digits) - 1:
+                if i == 0:
+                    temp = rf[v]
+                current_res = []
+                for j in temp:
+                    for k in rf[digits[i+1]]:
+                        current_res.append(j+k)
+                temp = current_res
+        return temp
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="92-reverse-linked-list-ii">92. Reverse Linked List II</h2>
+<p>问题描述：</p>
+<!-- raw HTML omitted -->
+<p>For example:
+Given <code>1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</code>, m = 2 and n = 4,</p>
+<p>return <code>1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</code>.</p>
+<p>Note:
+Given m, n satisfy the following condition:
+1 ≤ m ≤ n ≤ length of list.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def reverseBetween(self, head, m, n):
+        &#34;&#34;&#34;
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        1-&gt;2-&gt;
+        &#34;&#34;&#34;
+        if m == n:
+            return head
+        pre = None
+        node_start = head
+        for i in range(1,m):
+            pre = head
+            head = head.next
+        pre2 = None
+        node_end = head
+        for i in range(m,n+1):
+            next_node = head.next
+            head.next = pre2
+            pre2 = head
+            head = next_node
+        node_end.next = head
+        if m != 1: # 当m不从第一位开始时
+            pre.next = pre2
+            return node_start
+        else:
+            node_end.next = head
+            return pre2
+
+
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2018-02-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/leetcode/">leetcode</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/mongodb%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6%E7%AE%80%E6%9E%90/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">mongodb选举机制简析</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/mongoose%E5%B8%B8%E7%94%A8%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/">
+            <span class="next-text nav-default">Mongodb 常用聚合查询 - Group, Match, Project</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

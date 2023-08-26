@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Security on NoMuggle - To record my tech and my life</title>
+    <link>https://www.nomuggle.com/tags/security/</link>
+    <description>Recent content in Security on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ssspallow</copyright>
+    <lastBuildDate>Mon, 04 Nov 2019 08:56:00 +0800</lastBuildDate><atom:link href="https://www.nomuggle.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Code-Audit-Challenges解题记录</title>
+      <link>https://www.nomuggle.com/post/code-audit-challenges-solution/</link>
+      <pubDate>Mon, 04 Nov 2019 08:56:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/code-audit-challenges-solution/</guid>
+      <description>github上面的代码审计“小”题目。 代码审计和开发不同的是，代码审计需要异常关注程序语言的各种 小边界，各种开发所遗漏的语言安全特性。 这里将</description>
+    </item>
+    
+    <item>
+      <title>Sqli Lab解题记录</title>
+      <link>https://www.nomuggle.com/post/sqli-lab-notes/</link>
+      <pubDate>Wed, 17 Jul 2019 22:54:05 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/sqli-lab-notes/</guid>
+      <description>&lt;p&gt;Sqli-lab 是一个供人练习sql注入的一个项目。虽然现在实战中sql注入已经非常少了，但是sql注入还是经常出现在各种CTF比赛中,
+为了愉快的打CTF，垒实sqli的基础还是有必要的。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

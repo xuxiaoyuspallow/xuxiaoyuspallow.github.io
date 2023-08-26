@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on NoMuggle - To record my tech and my life</title>
+    <link>https://www.nomuggle.com/tags/java/</link>
+    <description>Recent content in java on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ssspallow</copyright>
+    <lastBuildDate>Thu, 10 Aug 2023 12:20:00 +0800</lastBuildDate><atom:link href="https://www.nomuggle.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jackson和java原生反序列化</title>
+      <link>https://www.nomuggle.com/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Thu, 10 Aug 2023 12:20:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>前言 在一次审计过程中发现了一处原生反序列化漏洞的点，但利用漏洞却花了很长时间，这里简要记录下。 程序是一个spring boot的应用程序，使用</description>
+    </item>
+    
+    <item>
+      <title>Commons Collections1</title>
+      <link>https://www.nomuggle.com/post/commons-collections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/commonscollections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</link>
+      <pubDate>Wed, 01 Dec 2021 20:40:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/commons-collections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/commonscollections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</guid>
+      <description>在写这篇学习笔记之前，我看了许多篇网上的文章， 发现它们都没有它们所声称的那么容易好理解。 在我完全搞懂这个漏洞之后， 我发现这个漏洞最难的地方并</description>
+    </item>
+    
+    <item>
+      <title>urldns</title>
+      <link>https://www.nomuggle.com/post/urldns/urldns/</link>
+      <pubDate>Wed, 01 Dec 2021 20:03:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/urldns/urldns/</guid>
+      <description>在java反序列化那篇文章里面我们提到要借助一个简单的例子来了解java反序列化的gadget，URLDNS就是这么一个例子。 URLDNS是</description>
+    </item>
+    
+    <item>
+      <title>java RMI</title>
+      <link>https://www.nomuggle.com/post/java-rmi/java-rmi/</link>
+      <pubDate>Tue, 30 Nov 2021 20:03:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/java-rmi/java-rmi/</guid>
+      <description>rmi(Remote Method Invocation)是java内的远程调用服务，可以实现从一个jvm远程调用另一个jvm的代码。 提供服务的一方我们称之为服务器，而实现</description>
+    </item>
+    
+    <item>
+      <title>java反序列化</title>
+      <link>https://www.nomuggle.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Mon, 29 Nov 2021 20:03:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>当数据在网络中传输时，我们需要把我们代码中的数据固定成某种特定的数据格式去传输，目前使用最为广泛的 两种格式是: json和xml. 但是这两种格</description>
+    </item>
+    
+    <item>
+      <title>java反射</title>
+      <link>https://www.nomuggle.com/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/</link>
+      <pubDate>Sun, 28 Nov 2021 23:30:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/</guid>
+      <description>反射机制是java语言提供动态特性的机制。动态特性，指一段代码， 改变其中的变量，即可对这段代码产生功能性的变化[1]。 基本语法 设想有一个Pe</description>
+    </item>
+    
+  </channel>
+</rss>

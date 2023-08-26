@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用travisCI自动发布你的hugo博客 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="众所周知， github有免费的github page可供用户放置静态页面。呃，对于更新不那么频繁的用户来说， github page可远远比自己搭的服务器 简" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/travis-ci-walk-through/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用travisCI自动发布你的hugo博客" />
+<meta property="og:description" content="众所周知， github有免费的github page可供用户放置静态页面。呃，对于更新不那么频繁的用户来说， github page可远远比自己搭的服务器 简" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/travis-ci-walk-through/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-06-11T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-06-11T00:00:00+08:00" />
+
+<meta itemprop="name" content="使用travisCI自动发布你的hugo博客">
+<meta itemprop="description" content="众所周知， github有免费的github page可供用户放置静态页面。呃，对于更新不那么频繁的用户来说， github page可远远比自己搭的服务器 简"><meta itemprop="datePublished" content="2019-06-11T00:00:00+08:00" />
+<meta itemprop="dateModified" content="2019-06-11T00:00:00+08:00" />
+<meta itemprop="wordCount" content="814">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用travisCI自动发布你的hugo博客"/>
+<meta name="twitter:description" content="众所周知， github有免费的github page可供用户放置静态页面。呃，对于更新不那么频繁的用户来说， github page可远远比自己搭的服务器 简"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用travisCI自动发布你的hugo博客</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-11 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/"> 工具介绍 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#操作">操作</a></li>
+    <li><a href="#安全">安全</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>众所周知， github有免费的github page可供用户放置静态页面。呃，对于更新不那么频繁的用户来说， github page可远远比自己搭的服务器
+简便得多，也不会因为自己忙于工作(懒)三个月没更新博客忘记续费服务器，导致网站宕机。 总的来说， 我用hugo来生成静态博客页面， 然后放在github page上。</p>
+<p>那么现在需求来了， 因为我经常开坑写一些半成品， 这么半成品往往是不想被人看到的，所以我不想我的hugo程序放在github的public仓库里面，
+但是这个程序也是一定要用github管理的，所以它得在private仓库里面。 我的需求是， 每当我完成一篇文章， 我把它的markdown版本push到github
+private仓库， 然后自动生成静态页面， push到我的github page仓库。 在这里， travisCI可以帮我的忙。</p>
+<h2 id="操作">操作</h2>
+<p>简单地说，Travis CI可以说是一种触发器， 只要你的仓库根目录有<code>.travis.yml</code> 文件，然后你push commit到仓库时， 就会触发一些操作，
+这些操作由<code>.travis.yml</code> 文件指定的命令指定。废话不多说， 直接看代码吧:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">language: minimal
+env:
+  global:
+    - USER=&#34;xuxiaoyuspallow&#34;
+    - EMAIL=&#34;xuxiaoyuspallow@gmail.com&#34;
+    - REPO=&#34;xuxiaoyuspallow.github.io&#34;
+    - DIRECTORY=&#34;public/&#34;
+    - GH_REPO=&#34;github.com/${USER}/${REPO}.git&#34;
+    - HUGO_VERSION=&#34;hugo_0.72.0_Linux-64bit.tar.gz&#34;
+branches:
+  only:
+  - master
+after_success:
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.72.0/${HUGO_VERSION}
+  - tar -zxvf ${HUGO_VERSION}
+  - MESSAGE=$(git log --format=%B -n 1 $TRAVIS_COMMIT)
+  - git clone https://${GH_REPO}
+  - ./hugo -d xuxiaoyuspallow.github.io
+  - cd ${REPO}
+  - git remote
+  - git config user.email ${EMAIL}
+  - git config user.name ${USER}
+  - git add .
+  - git commit -m &#34;${MESSAGE}&#34;
+  - git push &#34;https://${gh_token}@${GH_REPO}&#34; master
+</code></pre></td></tr></table>
+</div>
+</div><p>都是很口语话的命令啊， 这里就不一一解释了， 真用到了可以到<a href="https://docs.travis-ci.com/user/tutorial/">官方文档去看</a>。</p>
+<p>值得注意的有两点:</p>
+<ol>
+<li>脚本里面的${gh_token}是我在https://travis-ci.com里面设置的变量</li>
+<li>如果是private 项目，到https://travis-ci.com里面去注册管理， 有免费的运行次数</li>
+</ol>
+<h2 id="安全">安全</h2>
+<p>使用这些CI构建工具始终都要记得一点： token/apikey/secret别明文写在public仓库脚本里面， 不然分分钟被人劫持账号。 一般各种CI工具
+都有处理这些key的方法， 具体翻阅文档吧。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-06-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/sqli-lab-notes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Sqli Lab解题记录</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8E%9F%E7%90%86%E7%AE%80%E6%9E%90/">
+            <span class="next-text nav-default">express中间件原理简析</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

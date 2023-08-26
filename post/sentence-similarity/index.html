@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>基于语义网络和语料库统计的句子相似度算法 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content=" 这篇论文是3年前参加kaggle的比赛quora-question-pairs的时候找来跑的，由于时间复杂度过高 加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。
+2020/06/04 整理博客时更新
+ 最近看到一篇有趣的论文，Sentence Similarity Based on Semantic Nets and Corpus Statistics.
+" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/sentence-similarity/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="基于语义网络和语料库统计的句子相似度算法" />
+<meta property="og:description" content="
+这篇论文是3年前参加kaggle的比赛quora-question-pairs的时候找来跑的，由于时间复杂度过高
+加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。
+2020/06/04 整理博客时更新
+
+最近看到一篇有趣的论文，Sentence Similarity Based on Semantic Nets and Corpus Statistics." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/sentence-similarity/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2017-05-13T00:00:00+08:00" />
+<meta property="article:modified_time" content="2017-05-13T00:00:00+08:00" />
+
+<meta itemprop="name" content="基于语义网络和语料库统计的句子相似度算法">
+<meta itemprop="description" content="
+这篇论文是3年前参加kaggle的比赛quora-question-pairs的时候找来跑的，由于时间复杂度过高
+加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。
+2020/06/04 整理博客时更新
+
+最近看到一篇有趣的论文，Sentence Similarity Based on Semantic Nets and Corpus Statistics."><meta itemprop="datePublished" content="2017-05-13T00:00:00+08:00" />
+<meta itemprop="dateModified" content="2017-05-13T00:00:00+08:00" />
+<meta itemprop="wordCount" content="1442">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基于语义网络和语料库统计的句子相似度算法"/>
+<meta name="twitter:description" content="
+这篇论文是3年前参加kaggle的比赛quora-question-pairs的时候找来跑的，由于时间复杂度过高
+加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。
+2020/06/04 整理博客时更新
+
+最近看到一篇有趣的论文，Sentence Similarity Based on Semantic Nets and Corpus Statistics."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">基于语义网络和语料库统计的句子相似度算法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-13 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/"> 统计学习 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <hr>
+<p>这篇论文是3年前参加kaggle的比赛<a href="https://www.kaggle.com/c/quora-question-pairs">quora-question-pairs</a>的时候找来跑的，由于时间复杂度过高
+加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。</p>
+<p>2020/06/04 整理博客时更新</p>
+<hr>
+<p>最近看到一篇有趣的论文，<a href="http://ants.iis.sinica.edu.tw/3BkMJ9lTeWXTSrrvNoKNFDxRm3zFwRR/55/Sentence%20Similarity%20Based%20on%20Semantic%20Nets%20and%20corpus%20statistics.pdf">Sentence Similarity Based on Semantic Nets and Corpus Statistics</a>.</p>
+<p>恰好最近也遇上了类似的需求。因此便实现了论文中的算法。
+我的算法实现是基于<a href="https://www.python.org">python3</a> 和 <a href="http://www.nltk.org/">Natural Language Toolkit(NLTK)</a>.因为nltk中含有实现算法的WordNet和Brown Corpus。以下是算法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">from math import e,log,sqrt
+
+import nltk
+from nltk.corpus import wordnet as wn
+from nltk.corpus import brown
+
+corpus = []  # brown 语料库
+for i in brown.categories():
+    corpus.extend(brown.words(categories=i))
+
+word_buff = {}
+
+threshold = 0.25        # 最小相似度阈值
+semantic_and_word_order_factor=0.8   # 语义权重（语义和词序）
+
+
+def get_min_path_distance_and_subsumer_between_two_words(word1,word2):
+    &#34;&#34;&#34;
+    获取两个词之间的最小距离和父节点的最小深度
+    &#34;&#34;&#34;
+    if word1 in word_buff:
+        word1_synsets = word_buff[word1]
+    else:
+        word1_synsets = wn.synsets(word1)
+        word_buff[word1] = word1_synsets
+    if word2 in word_buff:
+        word2_synsets = word_buff[word2]
+    else:
+        word2_synsets = wn.synsets(word2)
+        word_buff[word2] = word2_synsets
+    if not word1_synsets or not word2_synsets:
+        return 0,0
+    min_distance = 999999
+    min_pairs = None
+    for word1_synset in word1_synsets:
+        for word2_synset in word2_synsets:
+            distance = word1_synset.shortest_path_distance(word2_synset)
+            if distance and distance &lt; min_distance:
+                min_distance = distance
+                min_pairs = (word1_synset,word2_synset)
+    subsumer_depth = 0
+    if min_pairs:
+        subsumer = min_pairs[0].lowest_common_hypernyms(min_pairs[0])
+        if subsumer and len(subsumer) == 1:
+            subsumer_depth = subsumer[0].min_depth()
+        else:
+            raise BaseException(&#39;function &#34;min_path_distance_between_two_words&#34; went wrong,check it&#39;)
+    else:
+        min_distance = None
+    return min_distance,subsumer_depth
+
+
+def similarity_between_two_words(word1,word2,length_factor=0.2,depth_factor=0.45):
+    # 计算相似度
+    length,subsumer_depth = get_min_path_distance_and_subsumer_between_two_words(word1,word2)
+    if not length:
+        return 0
+    function_length = e ** -(length_factor*length)
+    temp1 = e ** (depth_factor * subsumer_depth)
+    temp2 = e ** -(depth_factor * subsumer_depth)
+    function_depth = (temp1 - temp2) / (temp1 + temp2)
+    return function_length * function_depth
+
+
+def get_information_content(word,corpus):
+    # 获取词的information content
+    n = corpus.count(word)
+    N = len(corpus)
+    I_w = 1 - (log(n + 1) / log(N + 1))
+    return I_w
+
+
+def word_order_vector(word_vector,joint_words):
+    res = []
+    for word in joint_words:
+        if word in word_vector:
+            res.append(joint_words.index(word) + 1)
+        else:
+            max_similarity_word = None
+            max_similarity = -1
+            for t_word in word_vector:
+                current_similarity = similarity_between_two_words(word,t_word)
+                if current_similarity &gt; max_similarity:
+                    max_similarity_word = t_word
+                if current_similarity &gt; threshold and current_similarity &gt; max_similarity:
+                    max_similarity = current_similarity
+            res.append(joint_words.index(max_similarity_word) + 1)
+    return res
+
+
+def semantic_vector(word_vector,joint_words):
+    res = []
+    for word in joint_words:
+        i_w1 = get_information_content(word, corpus)
+        if word in word_vector:
+            res.append(i_w1 * i_w1)
+        else:
+            # 遍历word_vector，寻找与word相似度最大的词
+            max_similarity_word = None
+            max_similarity = -1
+            for t1_word in word_vector:
+                current_similarity = similarity_between_two_words(word, t1_word)
+                if current_similarity &gt; threshold and current_similarity &gt; max_similarity:
+                    max_similarity = current_similarity
+                    max_similarity_word = t1_word
+            if max_similarity != -1:
+                i_w2 = get_information_content(max_similarity_word, corpus)
+                res.append(max_similarity * i_w1 * i_w2)
+            else:
+                res.append(0)
+    return res
+
+
+def sentence_similarity(sentence1,sentence2):
+    # sentence1 = row[&#39;question1&#39;]
+    # sentence2 = row[&#39;question2&#39;]
+    words_1 = nltk.word_tokenize(sentence1)
+    words_2 = nltk.word_tokenize(sentence2)
+    if not words_1 or not words_2:
+        return 0
+    joint_words = list(set(words_1 + words_2))
+    semantic_vector1,semantic_vector2 = semantic_vector(words_1,joint_words),semantic_vector(words_2,joint_words)
+    word_order1,word_order2 = word_order_vector(words_1,joint_words),word_order_vector(words_2,joint_words)
+    s_s = sum(map(lambda x: x[0] * x[1], zip(semantic_vector1, semantic_vector2))) / sqrt(
+        sum(map(lambda x: x ** 2, semantic_vector1)) * sum(map(lambda x: x ** 2, semantic_vector2)))
+    s_r = sqrt(sum(map(lambda x: (x[0] - x[1]) ** 2, zip(word_order1, word_order2)))) / sqrt(
+        sum(map(lambda x: (x[0] + x[1]) ** 2, zip(word_order1, word_order2))))
+    sentence_similarity = semantic_and_word_order_factor * s_s + (1 - semantic_and_word_order_factor) * s_r
+    print(sentence1, &#39;%%&#39;, sentence2, &#39;:&#39;, sentence_similarity)
+    return sentence_similarity
+</code></pre></td></tr></table>
+</div>
+</div><p>一些测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    What is the step by step guide to invest in share market in india?  |  What is the step by step guide to invest in share market? : 0.6834055667921426
+    What is the story of Kohinoor (Koh-i-Noor) Diamond?  |  What would happen if the Indian government stole the Kohinoor (Koh-i-Noor) diamond back? : 0.7238159709057276
+    How can I increase the speed of my internet connection while using a VPN?  |  How can Internet speed be increased by hacking through DNS? : 0.3474180327786902
+    Why am I mentally very lonely? How can I solve it?  |  Find the remainder when [math]23^{24}[/math] is divided by 24,23? : 0.24185376358110777
+    Which one dissolve in water quikly sugar, salt, methane and carbon di oxide?  |  Which fish would survive in salt water? : 0.5557426453712866
+    Astrology: I am a Capricorn Sun Cap moon and cap rising...what does that say about me?  |  I&#39;m a triple Capricorn (Sun, Moon and ascendant in Capricorn) What does this say about me? : 0.5619685362853818
+    Should I buy tiago?  |  What keeps childern active and far from phone and video games? : 0.273650666926712
+    How can I be a good geologist?  |  What should I do to be a great geologist? : 0.7444940225200597
+    When do you use シ instead of し?  |  When do you use &#34;&amp;&#34; instead of &#34;and&#34;? : 0.33368722311749527
+    Motorola (company): Can I hack my Charter Motorolla DCX3400?  |  How do I hack Motorola DCX3400 for free internet? : 0.679325702169737
+    Method to find separation of slits using fresnel biprism?  |  What are some of the things technicians can tell about the durability and reliability of Laptops and its components? : 0.42371839556731794
+    How do I read and find my YouTube comments?  |  How can I see all my Youtube comments? : 0.39666438912838764
+    What can make Physics easy to learn?  |  How can you make physics easy to learn? : 0.7470727852312119
+    What was your first sexual experience like?  |  What was your first sexual experience? : 0.7939444688772478
+    What are the laws to change your status from a student visa to a green card in the US, how do they compare to the immigration laws in Canada?  |  What are the laws to change your status from a student visa to a green card in the US? How do they compare to the immigration laws in Japan? : 0.7893963850595556
+    What would a Trump presidency mean for current international master’s students on an F1 visa?  |  How will a Trump presidency affect the students presently in US or planning to study in US? : 0.4490581992952136
+    What does manipulation mean?  |  What does manipulation means? : 0.8021629585217567
+    Why do girls want to be friends with the guy they reject?  |  How do guys feel after rejecting a girl? : 0.6173692627635123
+    Why are so many Quora users posting questions that are readily answered on Google?  |  Why do people ask Quora questions which can be answered easily by Google? : 0.6794045129534761
+    Which is the best digital marketing institution in banglore?  |  Which is the best digital marketing institute in Pune? : 0.5332225611879753
+    Why do rockets look white?  |  Why are rockets and boosters painted white? : 0.7624609655280314
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2017-05-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/brainfuck%E8%A7%A3%E9%87%8A%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%89%A9%E5%B1%95/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">brainfuck解释器及扩展</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5%E9%81%8D%E5%8E%86%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%88%A0%E9%99%A4/">
+            <span class="next-text nav-default">二叉搜索树的插入，遍历，查询和删除</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

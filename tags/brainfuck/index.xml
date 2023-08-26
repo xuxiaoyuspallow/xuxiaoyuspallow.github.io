@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>brainfuck on NoMuggle - To record my tech and my life</title>
+    <link>https://www.nomuggle.com/tags/brainfuck/</link>
+    <description>Recent content in brainfuck on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ssspallow</copyright>
+    <lastBuildDate>Wed, 06 Sep 2017 10:20:00 +0800</lastBuildDate><atom:link href="https://www.nomuggle.com/tags/brainfuck/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>brainfuck解释器及扩展</title>
+      <link>https://www.nomuggle.com/post/brainfuck%E8%A7%A3%E9%87%8A%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%89%A9%E5%B1%95/</link>
+      <pubDate>Wed, 06 Sep 2017 10:20:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/brainfuck%E8%A7%A3%E9%87%8A%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%89%A9%E5%B1%95/</guid>
+      <description>首先介绍一下brainfuck的语法： 该语言定义在这样一个环境之上： 你有一列无限长的小火车，每个车厢里装了一个数字，初始为0。 还有一个列车员</description>
+    </item>
+    
+  </channel>
+</rss>

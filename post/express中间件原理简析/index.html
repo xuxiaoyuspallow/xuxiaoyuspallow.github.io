@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>express中间件原理简析 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="用了这么久的express框架， 对它的原理还是不太清楚，惭愧惭愧， 赶紧学习一下。 express的主要功能有: 中间件的使用 路由 模板引擎 静态文件" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8E%9F%E7%90%86%E7%AE%80%E6%9E%90/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="express中间件原理简析" />
+<meta property="og:description" content="用了这么久的express框架， 对它的原理还是不太清楚，惭愧惭愧， 赶紧学习一下。 express的主要功能有: 中间件的使用 路由 模板引擎 静态文件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8E%9F%E7%90%86%E7%AE%80%E6%9E%90/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-04-06T00:00:00+00:00" />
+
+<meta itemprop="name" content="express中间件原理简析">
+<meta itemprop="description" content="用了这么久的express框架， 对它的原理还是不太清楚，惭愧惭愧， 赶紧学习一下。 express的主要功能有: 中间件的使用 路由 模板引擎 静态文件"><meta itemprop="datePublished" content="2019-04-06T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-04-06T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1158">
+<meta itemprop="keywords" content="express," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="express中间件原理简析"/>
+<meta name="twitter:description" content="用了这么久的express框架， 对它的原理还是不太清楚，惭愧惭愧， 赶紧学习一下。 express的主要功能有: 中间件的使用 路由 模板引擎 静态文件"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">express中间件原理简析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-06 </span>
+        <div class="post-category">
+            <a href="/categories/node.js/"> node.js </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是中间件">什么是中间件?</a></li>
+    <li><a href="#中间件源码">中间件源码</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>用了这么久的express框架， 对它的原理还是不太清楚，惭愧惭愧， 赶紧学习一下。</p>
+<p>express的主要功能有:</p>
+<ul>
+<li>中间件的使用</li>
+<li>路由</li>
+<li>模板引擎</li>
+<li>静态文件服务</li>
+<li>设置代理</li>
+</ul>
+<p>这篇文章主要涉及到express中间件的实现原理， 这也是面试的重头戏啦。</p>
+<p>先看一个最简单的express例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">var express = require(&#39;express&#39;);
+var app = express();
+app.listen(3000, function () {
+    console.log(&#39;listen 3000...&#39;);
+});
+
+app.use(middlewareA);
+app.use(middlewareB);
+app.use(middlewareC);
+</code></pre></td></tr></table>
+</div>
+</div><p>app.use()就是通常所说的使用中间件</p>
+<h2 id="什么是中间件">什么是中间件?</h2>
+<p>一个请求发送到服务器后，它的生命周期是 先收到request（请求），然后服务端处理，处理完了以后发送response（响应）回去</p>
+<p>而这个服务端处理的过程就有文章可做了，想象一下当业务逻辑复杂的时候，为了明确和便于维护，需要把处理的事情分一下，分配成几个部分来做，而每个部分就是一个中间件</p>
+<p>app.use 加载用于处理http请求的middleware（中间件），当一个请求来的时候，会依次被这些 middlewares处理。</p>
+<p>中间件执行的顺序是你定义的顺序.</p>
+<h2 id="中间件源码">中间件源码</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//connect.js 的简要内容
+
+function createServer(){
+    
+    // app是用于http.createServer的回调函数
+    function app(req, res, next){
+    
+        // 运行时调用handle函数
+        app.handle(req, res, next);
+    }
+
+    mixin(app, proto, false);
+    
+    // 初始化一个stack数组
+    app.stack = []; 
+    return app;
+}
+
+// use调用时往app的stack数组中push一个对象（中间件），标识path与回调函数
+proto.use = function(route, fn){
+    var path = route, 
+    handle = fn;
+
+    //...  省略其他
+    
+    this.stack.push({
+        route: path,
+        handle
+    });
+};
+
+// handle方法，串行取出stack数组中的中间件，逐个运行
+proto.handle = function(req, res, out){
+    var index = 0;
+    var stack = this.stack;
+    var done = out || finalhandler(req, res, { onerror: logerror });
+
+    // 遍历stack，逐个取出中间件运行
+    function next(err){
+        var layer = stack[index++];
+        // 遍历完成为止
+        if(layer === undefined){
+            return done();
+        }
+
+        var route = pathFormat(layer.route);
+        var pathname = pathFormat(urlParser(req.url).pathname || &#39;/&#39;);
+
+        // 匹配中间件，不匹配的不运行
+        if(route !== &#39;&#39; &amp;&amp; pathname !== route){
+            next(err);
+            return;
+        }
+
+        // 调用中间件
+        call(layer.handle, err, req, res, next);
+    }
+
+    next();
+};
+</code></pre></td></tr></table>
+</div>
+</div><p>不难看出，app.use中间件时，只是把它放入一个数组中。</p>
+<p>当http请求时，app会从数组中逐个取出，进行匹配过滤，逐个运行。遍历完成后，运行finalhandler，结束一个http请求。</p>
+<p>可以从http请求的角度思考，一次请求它经历经历了多少东西。</p>
+<p>express的这个中间件架构就是负责管理与调用这些注册的中间件。</p>
+<p>中间件顺序执行，通过next来继续下一个，一旦没有继续next，则流程结束。</p>
+<h2 id="总结">总结</h2>
+<p>总的来说, express内部维护一个函数数组，这个函数数组表示在发出响应之前要执行的所有函数，也就是中间件数组。</p>
+<p>使用app.use(fn)后，传进来的fn就会被扔到这个数组里，执行完毕后调用next()方法执行函数数组里的下一个函数，
+如果没有调用next()的话，就不会调用下一个函数了，也就是说调用就会被终止。</p>
+<p>并没有想象中的复杂吧。</p>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/56947560">NodeJS express框架核心原理全揭秘</a></li>
+<li><a href="https://www.jianshu.com/p/797a4e38fe77">Express中间件的原理及实现</a></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/express/">express</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/travis-ci-walk-through/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">使用travisCI自动发布你的hugo博客</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/mongodb%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6%E7%AE%80%E6%9E%90/">
+            <span class="next-text nav-default">mongodb选举机制简析</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

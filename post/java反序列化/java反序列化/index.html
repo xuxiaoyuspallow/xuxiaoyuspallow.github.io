@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>java反序列化 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="当数据在网络中传输时，我们需要把我们代码中的数据固定成某种特定的数据格式去传输，目前使用最为广泛的 两种格式是: json和xml. 但是这两种格" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="java反序列化" />
+<meta property="og:description" content="当数据在网络中传输时，我们需要把我们代码中的数据固定成某种特定的数据格式去传输，目前使用最为广泛的 两种格式是: json和xml. 但是这两种格" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-29T20:03:00+08:00" />
+<meta property="article:modified_time" content="2021-11-29T20:03:00+08:00" />
+
+<meta itemprop="name" content="java反序列化">
+<meta itemprop="description" content="当数据在网络中传输时，我们需要把我们代码中的数据固定成某种特定的数据格式去传输，目前使用最为广泛的 两种格式是: json和xml. 但是这两种格"><meta itemprop="datePublished" content="2021-11-29T20:03:00+08:00" />
+<meta itemprop="dateModified" content="2021-11-29T20:03:00+08:00" />
+<meta itemprop="wordCount" content="1089">
+<meta itemprop="keywords" content="java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="java反序列化"/>
+<meta name="twitter:description" content="当数据在网络中传输时，我们需要把我们代码中的数据固定成某种特定的数据格式去传输，目前使用最为广泛的 两种格式是: json和xml. 但是这两种格"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">java反序列化</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-11-29 </span>
+        <div class="post-category">
+            <a href="/categories/java%E5%AE%89%E5%85%A8/"> java安全 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本使用">基本使用</a>
+      <ul>
+        <li><a href="#序列化">序列化</a></li>
+        <li><a href="#反序列化">反序列化</a></li>
+        <li><a href="#writeobject和readobject">writeObject和readObject</a></li>
+      </ul>
+    </li>
+    <li><a href="#漏洞">漏洞</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>当数据在网络中传输时，我们需要把我们代码中的数据固定成某种特定的数据格式去传输，目前使用最为广泛的
+两种格式是: json和xml. 但是这两种格式默认只支持了基本的数据类型，如数字，字符串等。</p>
+<p>当我们想序列一些自定义对象时，它们就无能为力了。 因此各种语言，各个框架都自定义了自己的一套规则自定义对象。</p>
+<h2 id="基本使用">基本使用</h2>
+<p>还是直接先看代码吧</p>
+<p>我们先定义一个类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Person implements Serializable{
+    public String name;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到这个Person类实现了<code>java.io.Serializable</code>接口，这也是一个类序列化的必要条件。</p>
+<h3 id="序列化">序列化</h3>
+<p>先实例化Person类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Person p = new Person();
+p.name = &#34;wwww&#34;;
+</code></pre></td></tr></table>
+</div>
+</div><p>将person类序列化并保存</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">String fileName = &#34;./person.ser&#34;;
+FileOutputStream f = new FileOutputStream(fileName);
+ObjectOutputStream out = new ObjectOutputStream(f);
+out.writeObject(p);
+out.close();
+f.close();
+</code></pre></td></tr></table>
+</div>
+</div><p>这里用到<code>ObjectOutputStream</code>的<code>writeObject</code>方法将其序列化</p>
+<p>用winhex打开person.ser</p>
+<p><img src="img.png" alt="img.png"></p>
+<p>可以看到开头两位是AC ED， 这也是java反序列化的魔术字符，有时我们在ctf看到这时，就知道这跟java反序列化逃不了干系了。</p>
+<h3 id="反序列化">反序列化</h3>
+<p>有出就有进。 反序列化用的是<code>ObjectInputStream</code>的<code>readObject</code>方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FileInputStream f1 = new FileInputStream(fileName);
+ObjectInputStream in = new ObjectInputStream(f1);
+Person p1 = (Person) in.readObject();
+System.out.println(p1.name);
+</code></pre></td></tr></table>
+</div>
+</div><p>运行后打印出了我们在上面设置的name: wwww</p>
+<h3 id="writeobject和readobject">writeObject和readObject</h3>
+<p>有时候，我们会想在序列化和反序列化时做一些事情，例如在序列化时存个链接，在反序列时再把这请求这链接拿到结果等等</p>
+<p>java Serializable接口贴心的为我们准备了两个方法实现这个功能：</p>
+<ul>
+<li>writeObject  序列化时自动调用</li>
+<li>readObject   反序列化时自动调用
+直接看示例</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Person implements Serializable{
+    public String name;
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        String password = (String) in.readObject();
+        System.out.println(password);
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(&#34;this is password&#34;);
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>那么漏洞呢？</p>
+<h2 id="漏洞">漏洞</h2>
+<p>上面说了java会在反序列化时自动调用类的readObject方法，那么如果开发人员在readObject上写上了恶意代码， 如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    Runtime.getruntime.exec(&#34;calc.exe&#34;)
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>那么在反序列化时就会自动执行命令了。</p>
+<p>什么？ 不会有这样的开发人员？</p>
+<p>确实不大可能会有这么缺心眼的开发者。 因此我们往往需要通过将java内自带的库或者比较通用的库，将它们的readObject串联起来，
+从而达成我们想要的目的。</p>
+<p>更详细的ObjectInputStream.readObject之后发生了什么？ 可以看这篇文章:http://www.lmxspace.com/2019/11/20/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%BF%87%E7%A8%8B%E6%B7%B1%E7%A9%B6/</p>
+<p>下一篇文章会用一个简短的调用链来了解什么是&quot;gadget&quot;.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-11-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/java-rmi/java-rmi/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">java RMI</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/">
+            <span class="next-text nav-default">java反射</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

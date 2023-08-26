@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法与数据结构 on NoMuggle - To record my tech and my life</title>
+    <link>https://www.nomuggle.com/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <description>Recent content in 算法与数据结构 on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ssspallow</copyright>
+    <lastBuildDate>Thu, 01 Feb 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://www.nomuggle.com/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode解题记录</title>
+      <link>https://www.nomuggle.com/post/leetcode%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 01 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/leetcode%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/</guid>
+      <description>2. Add Two Numbers 问题描述： You may assume the two numbers do not contain any leading zero, except the number 0 itself. Example 1 2 3 Input: (2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4) Output: 7 -&amp;gt; 0 -&amp;gt; 8 Explanation: 342 + 465 = 807. 大概是说给定两个链表表示的非负整</description>
+    </item>
+    
+    <item>
+      <title>二叉搜索树的插入，遍历，查询和删除</title>
+      <link>https://www.nomuggle.com/post/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5%E9%81%8D%E5%8E%86%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%88%A0%E9%99%A4/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5%E9%81%8D%E5%8E%86%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%88%A0%E9%99%A4/</guid>
+      <description>简介 二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵 空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左</description>
+    </item>
+    
+  </channel>
+</rss>

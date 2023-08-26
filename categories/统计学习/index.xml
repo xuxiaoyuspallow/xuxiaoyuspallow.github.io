@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>统计学习 on NoMuggle - To record my tech and my life</title>
+    <link>https://www.nomuggle.com/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in 统计学习 on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ssspallow</copyright>
+    <lastBuildDate>Sat, 13 May 2017 00:00:00 +0800</lastBuildDate><atom:link href="https://www.nomuggle.com/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于语义网络和语料库统计的句子相似度算法</title>
+      <link>https://www.nomuggle.com/post/sentence-similarity/</link>
+      <pubDate>Sat, 13 May 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/sentence-similarity/</guid>
+      <description>&lt;hr&gt;
+&lt;p&gt;这篇论文是3年前参加kaggle的比赛&lt;a href=&#34;https://www.kaggle.com/c/quora-question-pairs&#34;&gt;quora-question-pairs&lt;/a&gt;的时候找来跑的，由于时间复杂度过高
+加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。&lt;/p&gt;
+&lt;p&gt;2020/06/04 整理博客时更新&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最近看到一篇有趣的论文，&lt;a href=&#34;http://ants.iis.sinica.edu.tw/3BkMJ9lTeWXTSrrvNoKNFDxRm3zFwRR/55/Sentence%20Similarity%20Based%20on%20Semantic%20Nets%20and%20corpus%20statistics.pdf&#34;&gt;Sentence Similarity Based on Semantic Nets and Corpus Statistics&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>java反射 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="反射机制是java语言提供动态特性的机制。动态特性，指一段代码， 改变其中的变量，即可对这段代码产生功能性的变化[1]。 基本语法 设想有一个Pe" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="java反射" />
+<meta property="og:description" content="反射机制是java语言提供动态特性的机制。动态特性，指一段代码， 改变其中的变量，即可对这段代码产生功能性的变化[1]。 基本语法 设想有一个Pe" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-28T23:30:00+08:00" />
+<meta property="article:modified_time" content="2021-11-28T23:30:00+08:00" />
+
+<meta itemprop="name" content="java反射">
+<meta itemprop="description" content="反射机制是java语言提供动态特性的机制。动态特性，指一段代码， 改变其中的变量，即可对这段代码产生功能性的变化[1]。 基本语法 设想有一个Pe"><meta itemprop="datePublished" content="2021-11-28T23:30:00+08:00" />
+<meta itemprop="dateModified" content="2021-11-28T23:30:00+08:00" />
+<meta itemprop="wordCount" content="1219">
+<meta itemprop="keywords" content="java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="java反射"/>
+<meta name="twitter:description" content="反射机制是java语言提供动态特性的机制。动态特性，指一段代码， 改变其中的变量，即可对这段代码产生功能性的变化[1]。 基本语法 设想有一个Pe"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">java反射</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-11-28 </span>
+        <div class="post-category">
+            <a href="/categories/java%E5%AE%89%E5%85%A8/"> java安全 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本语法">基本语法</a></li>
+    <li><a href="#newinstance-方法的一些问题">newInstance 方法的一些问题</a>
+      <ul>
+        <li><a href="#该类没有无参构造函数">该类没有无参构造函数</a></li>
+        <li><a href="#该类的构造函数是私有的">该类的构造函数是私有的</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>反射机制是java语言提供动态特性的机制。动态特性，指一段代码， 改变其中的变量，即可对这段代码产生功能性的变化[1]。</p>
+<h2 id="基本语法">基本语法</h2>
+<p>设想有一个Person类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">class Person {
+    public Person(){}
+
+    private String name;
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>当我们想使用此类时，需要实例化它，并使用它的属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Person p = new Person();
+p.setName(&#34;xiaoming&#34;);
+System.out.println(p.getName());
+</code></pre></td></tr></table>
+</div>
+</div><p>这是我们正常使用类时的方法， 除了这种方法，有时候我们不想 <code>import</code> 此类就想使用其方法，<strong>反射</strong>就可以派上用场了。</p>
+<p>同样是上面的setName、getName功能， 用反射实现的代码为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Class cls = Class.forName(&#34;reflect.Person&#34;); 
+Object personInstance = cls.newInstance();
+cls.getMethod(&#34;setName&#34;, String.class).invoke(personInstance,&#34;xiaohong&#34;);
+System.out.println(cls.getMethod(&#34;getName&#34;).invoke(personInstance));
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，只需要一个包名：reflect.Person 即可使用Person的public函数了</p>
+<p>反射用到的方法如下:</p>
+<ul>
+<li>获取类的⽅法： forName</li>
+<li>实例化类对象的⽅法： newInstance</li>
+<li>获取函数的⽅法： getMethod</li>
+<li>执⾏函数的⽅法： invoke</li>
+</ul>
+<h2 id="newinstance-方法的一些问题">newInstance 方法的一些问题</h2>
+<p>当我们使用反射的newInstance方法时，可能会出现一些问题。</p>
+<p>此方法的文档如下:</p>
+<blockquote>
+<p>Creates a new instance of the class represented by this Class object. The class is instantiated as if by a new expression with an empty argument list. The class is initialized if it has not already been initialized.</p>
+</blockquote>
+<p>当我们使用newInstance，实际上是调用该类的无参构造函数， 例如在上面的例子里<code>Object personInstance = cls.newInstance();</code>就
+调用了Person类的Person()方法。</p>
+<p>但是要注意， 以下情况会导致newInstance调用<strong>失败</strong>：</p>
+<ul>
+<li>该类没有无参构造函数（注意：当我们没写构造函数时默认存在一个无参构造函数）</li>
+<li>该类的构造函数是私有的</li>
+</ul>
+<p>以下针对上面两种情况分析.</p>
+<h3 id="该类没有无参构造函数">该类没有无参构造函数</h3>
+<p>这种情况可以使用getConstructor函数传入构造函数参数</p>
+<p><img src="../img.png" alt="img.png"></p>
+<blockquote>
+<p>Params:
+parameterTypes – the parameter array</p>
+</blockquote>
+<blockquote>
+<p>Returns:
+the Constructor object of the public constructor that matches the specified parameterTypes</p>
+</blockquote>
+<p>假如上面例子的构造函数为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public Person(String name){
+    System.out.println(name);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>我们可以这样传入参数反射:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Class cls = Class.forName(&#34;reflect.Person&#34;);
+Object personInstance = cls.getConstructor(String.class).newInstance(&#34;name&#34;);
+cls.getMethod(&#34;setName&#34;, String.class).invoke(personInstance,&#34;xiaohong&#34;);
+System.out.println(cls.getMethod(&#34;getName&#34;).invoke(personInstance));
+</code></pre></td></tr></table>
+</div>
+</div><p>如果参数类型是List</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public Person(list&lt;String&gt; name){
+    System.out.println(name);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>可以传入list类型的参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Class cls = Class.forName(&#34;reflect.Person&#34;);
+Object personInstance = cls.getConstructor(List.class).newInstance(Arrays.asList(&#34;name&#34;));
+cls.getMethod(&#34;setName&#34;, String.class).invoke(personInstance,&#34;xiaohong&#34;);
+System.out.println(cls.getMethod(&#34;getName&#34;).invoke(personInstance));
+</code></pre></td></tr></table>
+</div>
+</div><p>总之传入对应的参数类型和参数即可。</p>
+<p>值得一提的是， 对于可变参数， 如<code>Person(String...names)</code>, 它和<code>Person(String[] names)</code>是等价的
+因此我们可以这样写:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Object personInstance = cls.getConstructor(String[].class).newInstance(new String[][]{{&#34;calc.exe&#34;}});
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="该类的构造函数是私有的">该类的构造函数是私有的</h3>
+<p>一般这种类用于单例模式。</p>
+<p>改下上面的例子的构造函数为private， 为避免复杂化， 先不要参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">private Person(){
+    System.out.println(”“);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这时候需要用到反射的getDeclaredConstructor函数了，先看最终代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Class cls = Class.forName(&#34;reflect.Person&#34;);
+Constructor m = cls.getDeclaredConstructor();
+m.setAccessible(true);
+Object personInstance = m.newInstance();
+cls.getMethod(&#34;setName&#34;, String.class).invoke(personInstance,&#34;xiaohong&#34;);
+</code></pre></td></tr></table>
+</div>
+</div><p>这里可以先介绍以下getDeclaredMethod函数，它和getMethod函数的区别在于:</p>
+<ul>
+<li>getDeclaredMethod 方法获取的是当前类中“声明”的方法，包括私有的方法，但不包含从父类里继承来的方法</li>
+<li>getMethod 方法获取的是当前类中所有公共方法，包括从父类继承的方法</li>
+</ul>
+<p>getDeclaredMethod获取到的method可以设置可访问性: 即 setAccessible， 设置为true之后就可以访问私有的方法了。</p>
+<p>至于上面私有的构造方法，也是同理。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-11-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">java反序列化</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/code-audit-challenges-solution/">
+            <span class="next-text nav-default">Code-Audit-Challenges解题记录</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

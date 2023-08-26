@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NoMuggle - To record my tech and my life</title>
+    <link>https://www.nomuggle.com/</link>
+    <description>Recent content on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ssspallow</copyright>
+    <lastBuildDate>Thu, 10 Aug 2023 12:20:00 +0800</lastBuildDate><atom:link href="https://www.nomuggle.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jackson和java原生反序列化</title>
+      <link>https://www.nomuggle.com/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Thu, 10 Aug 2023 12:20:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>前言 在一次审计过程中发现了一处原生反序列化漏洞的点，但利用漏洞却花了很长时间，这里简要记录下。 程序是一个spring boot的应用程序，使用</description>
+    </item>
+    
+    <item>
+      <title>Commons Collections1</title>
+      <link>https://www.nomuggle.com/post/commons-collections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/commonscollections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</link>
+      <pubDate>Wed, 01 Dec 2021 20:40:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/commons-collections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/commonscollections1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</guid>
+      <description>在写这篇学习笔记之前，我看了许多篇网上的文章， 发现它们都没有它们所声称的那么容易好理解。 在我完全搞懂这个漏洞之后， 我发现这个漏洞最难的地方并</description>
+    </item>
+    
+    <item>
+      <title>urldns</title>
+      <link>https://www.nomuggle.com/post/urldns/urldns/</link>
+      <pubDate>Wed, 01 Dec 2021 20:03:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/urldns/urldns/</guid>
+      <description>在java反序列化那篇文章里面我们提到要借助一个简单的例子来了解java反序列化的gadget，URLDNS就是这么一个例子。 URLDNS是</description>
+    </item>
+    
+    <item>
+      <title>java RMI</title>
+      <link>https://www.nomuggle.com/post/java-rmi/java-rmi/</link>
+      <pubDate>Tue, 30 Nov 2021 20:03:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/java-rmi/java-rmi/</guid>
+      <description>rmi(Remote Method Invocation)是java内的远程调用服务，可以实现从一个jvm远程调用另一个jvm的代码。 提供服务的一方我们称之为服务器，而实现</description>
+    </item>
+    
+    <item>
+      <title>java反序列化</title>
+      <link>https://www.nomuggle.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Mon, 29 Nov 2021 20:03:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>当数据在网络中传输时，我们需要把我们代码中的数据固定成某种特定的数据格式去传输，目前使用最为广泛的 两种格式是: json和xml. 但是这两种格</description>
+    </item>
+    
+    <item>
+      <title>java反射</title>
+      <link>https://www.nomuggle.com/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/</link>
+      <pubDate>Sun, 28 Nov 2021 23:30:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/java%E5%8F%8D%E5%B0%84/java%E5%8F%8D%E5%B0%84/</guid>
+      <description>反射机制是java语言提供动态特性的机制。动态特性，指一段代码， 改变其中的变量，即可对这段代码产生功能性的变化[1]。 基本语法 设想有一个Pe</description>
+    </item>
+    
+    <item>
+      <title>Code-Audit-Challenges解题记录</title>
+      <link>https://www.nomuggle.com/post/code-audit-challenges-solution/</link>
+      <pubDate>Mon, 04 Nov 2019 08:56:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/code-audit-challenges-solution/</guid>
+      <description>github上面的代码审计“小”题目。 代码审计和开发不同的是，代码审计需要异常关注程序语言的各种 小边界，各种开发所遗漏的语言安全特性。 这里将</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://www.nomuggle.com/about/</link>
+      <pubDate>Fri, 19 Jul 2019 10:44:23 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/about/</guid>
+      <description>Email: xuxiaoyuspallow@gmail.com</description>
+    </item>
+    
+    <item>
+      <title>Sqli Lab解题记录</title>
+      <link>https://www.nomuggle.com/post/sqli-lab-notes/</link>
+      <pubDate>Wed, 17 Jul 2019 22:54:05 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/sqli-lab-notes/</guid>
+      <description>&lt;p&gt;Sqli-lab 是一个供人练习sql注入的一个项目。虽然现在实战中sql注入已经非常少了，但是sql注入还是经常出现在各种CTF比赛中,
+为了愉快的打CTF，垒实sqli的基础还是有必要的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用travisCI自动发布你的hugo博客</title>
+      <link>https://www.nomuggle.com/post/travis-ci-walk-through/</link>
+      <pubDate>Tue, 11 Jun 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/travis-ci-walk-through/</guid>
+      <description>众所周知， github有免费的github page可供用户放置静态页面。呃，对于更新不那么频繁的用户来说， github page可远远比自己搭的服务器 简</description>
+    </item>
+    
+    <item>
+      <title>express中间件原理简析</title>
+      <link>https://www.nomuggle.com/post/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8E%9F%E7%90%86%E7%AE%80%E6%9E%90/</link>
+      <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8E%9F%E7%90%86%E7%AE%80%E6%9E%90/</guid>
+      <description>用了这么久的express框架， 对它的原理还是不太清楚，惭愧惭愧， 赶紧学习一下。 express的主要功能有: 中间件的使用 路由 模板引擎 静态文件</description>
+    </item>
+    
+    <item>
+      <title>mongodb选举机制简析</title>
+      <link>https://www.nomuggle.com/post/mongodb%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6%E7%AE%80%E6%9E%90/</link>
+      <pubDate>Sat, 03 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/mongodb%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6%E7%AE%80%E6%9E%90/</guid>
+      <description>复制集 MongoDB复制集是指MongoDB实例通过复制并应用其他实例的oplog达到数据冗余的技术。 MongoDB复制集一般由一个主服务器</description>
+    </item>
+    
+    <item>
+      <title>leetcode解题记录</title>
+      <link>https://www.nomuggle.com/post/leetcode%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 01 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/leetcode%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/</guid>
+      <description>2. Add Two Numbers 问题描述： You may assume the two numbers do not contain any leading zero, except the number 0 itself. Example 1 2 3 Input: (2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4) Output: 7 -&amp;gt; 0 -&amp;gt; 8 Explanation: 342 + 465 = 807. 大概是说给定两个链表表示的非负整</description>
+    </item>
+    
+    <item>
+      <title>Mongodb 常用聚合查询 - Group, Match, Project</title>
+      <link>https://www.nomuggle.com/post/mongoose%E5%B8%B8%E7%94%A8%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Tue, 05 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/mongoose%E5%B8%B8%E7%94%A8%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/</guid>
+      <description>Mongodb提供了一些聚合的接口，以方便用户查询表并返回计算后的结果。 本文主要是记录一些常用的聚合以方便查阅。 常见的操作有sum, count, ave</description>
+    </item>
+    
+    <item>
+      <title>node.js使用初体验</title>
+      <link>https://www.nomuggle.com/post/node.js%E4%BD%BF%E7%94%A8%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+      <pubDate>Sat, 07 Oct 2017 20:13:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/node.js%E4%BD%BF%E7%94%A8%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+      <description>正式使用node.js作为开发语言已经两个月了， 从一开始的别扭地使用到现在的越发得心应手， 写篇博客记录一下 这两个月来的心路历程。 用node.</description>
+    </item>
+    
+    <item>
+      <title>brainfuck解释器及扩展</title>
+      <link>https://www.nomuggle.com/post/brainfuck%E8%A7%A3%E9%87%8A%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%89%A9%E5%B1%95/</link>
+      <pubDate>Wed, 06 Sep 2017 10:20:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/brainfuck%E8%A7%A3%E9%87%8A%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%89%A9%E5%B1%95/</guid>
+      <description>首先介绍一下brainfuck的语法： 该语言定义在这样一个环境之上： 你有一列无限长的小火车，每个车厢里装了一个数字，初始为0。 还有一个列车员</description>
+    </item>
+    
+    <item>
+      <title>基于语义网络和语料库统计的句子相似度算法</title>
+      <link>https://www.nomuggle.com/post/sentence-similarity/</link>
+      <pubDate>Sat, 13 May 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/sentence-similarity/</guid>
+      <description>&lt;hr&gt;
+&lt;p&gt;这篇论文是3年前参加kaggle的比赛&lt;a href=&#34;https://www.kaggle.com/c/quora-question-pairs&#34;&gt;quora-question-pairs&lt;/a&gt;的时候找来跑的，由于时间复杂度过高
+加上电脑垃圾， 跑了几天几夜才跑完。 结果也是非常不好，毕竟是十几年前的论文了， 可能还比不上现在lstm写的demo了。&lt;/p&gt;
+&lt;p&gt;2020/06/04 整理博客时更新&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最近看到一篇有趣的论文，&lt;a href=&#34;http://ants.iis.sinica.edu.tw/3BkMJ9lTeWXTSrrvNoKNFDxRm3zFwRR/55/Sentence%20Similarity%20Based%20on%20Semantic%20Nets%20and%20corpus%20statistics.pdf&#34;&gt;Sentence Similarity Based on Semantic Nets and Corpus Statistics&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>二叉搜索树的插入，遍历，查询和删除</title>
+      <link>https://www.nomuggle.com/post/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5%E9%81%8D%E5%8E%86%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%88%A0%E9%99%A4/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5%E9%81%8D%E5%8E%86%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%88%A0%E9%99%A4/</guid>
+      <description>简介 二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵 空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左</description>
+    </item>
+    
+    <item>
+      <title>Python之禅</title>
+      <link>https://www.nomuggle.com/post/python%E4%B9%8B%E7%A6%85/</link>
+      <pubDate>Wed, 09 Nov 2016 23:00:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/python%E4%B9%8B%E7%A6%85/</guid>
+      <description>当我们初写程序的时候，我们总会从一句最简单的话开始： hello world 当我们写python的时候，我们也有一段最基本的总纲——&amp;ldquo;this&amp;rd</description>
+    </item>
+    
+  </channel>
+</rss>
