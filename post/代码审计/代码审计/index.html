@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何当一个代码审计机器人 - NoMuggle - To record my tech and my life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ssspallow" /><meta name="description" content="背景 藏在笔记里面很久的一篇总结了，记录了大佬们在吭呲吭呲产出高危漏洞时， 我对着代码不知所措时的心态。 强烈的驱动力 要全面理解一个系统，理解其攻" /><meta name="keywords" content="security, python, node.js" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.4 with theme even" />
+
+
+<link rel="canonical" href="https://www.nomuggle.com/post/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="如何当一个代码审计机器人" />
+<meta property="og:description" content="背景 藏在笔记里面很久的一篇总结了，记录了大佬们在吭呲吭呲产出高危漏洞时， 我对着代码不知所措时的心态。 强烈的驱动力 要全面理解一个系统，理解其攻" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nomuggle.com/post/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-08-26T23:30:00+08:00" />
+<meta property="article:modified_time" content="2023-08-26T23:30:00+08:00" />
+
+<meta itemprop="name" content="如何当一个代码审计机器人">
+<meta itemprop="description" content="背景 藏在笔记里面很久的一篇总结了，记录了大佬们在吭呲吭呲产出高危漏洞时， 我对着代码不知所措时的心态。 强烈的驱动力 要全面理解一个系统，理解其攻"><meta itemprop="datePublished" content="2023-08-26T23:30:00+08:00" />
+<meta itemprop="dateModified" content="2023-08-26T23:30:00+08:00" />
+<meta itemprop="wordCount" content="1224">
+<meta itemprop="keywords" content="代码审计," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何当一个代码审计机器人"/>
+<meta name="twitter:description" content="背景 藏在笔记里面很久的一篇总结了，记录了大佬们在吭呲吭呲产出高危漏洞时， 我对着代码不知所措时的心态。 强烈的驱动力 要全面理解一个系统，理解其攻"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">NoMuggle</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">NoMuggle</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何当一个代码审计机器人</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-08-26 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"> 代码审计 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#强烈的驱动力">强烈的驱动力</a></li>
+    <li><a href="#计划">计划</a></li>
+    <li><a href="#喜新厌旧">喜新厌旧</a></li>
+    <li><a href="#心态">心态</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="背景">背景</h2>
+<p>藏在笔记里面很久的一篇总结了，记录了大佬们在吭呲吭呲产出高危漏洞时， 我对着代码不知所措时的心态。</p>
+<h2 id="强烈的驱动力">强烈的驱动力</h2>
+<p>要全面理解一个系统，理解其攻击面和潜在的漏洞，往往是有迹可循的。</p>
+<p>我不觉得这个行业是多依赖天赋，我觉得更是依赖勤奋。 跟谈恋爱差不多，你必须花这么多时间在那个系统上，它才会暴露它的脆弱性。</p>
+<p>所以必须有强烈的驱动力驱动你去审计各种各样的系统，你必须花很长时间在上面。</p>
+<p>我发现有些人的驱动力彷佛是天生的，他们看代码比打游戏还开心，他们可以花很长时间去看代码，即使没有产出。这才是代码审计的顶级天赋。</p>
+<p>如果你有这种天赋，请好好珍惜。 但是如果你和我一样没有，也不意味着我们就发现不了漏洞了，只是你要花时间寻找其中的美妙之处。</p>
+<p>可以从发现了CVE、拿到了赏金奖励、加强了工作能力、提升社区影响力这几个方面去找。</p>
+<p>对我来说，发现一个系统是如何运行的，了解代码是怎么写的，也是比较感兴趣的点。</p>
+<h2 id="计划">计划</h2>
+<p>对我而言，拿到产品立即进行测试会较快地进入心流状态，但往往不是效率最高的状态。能让你很快开始测试的点往往是片面的和浮于水面的，
+像是盲人摸象。如果一开始就先关注总体的架构，审计往往会更加全面。</p>
+<p>现实中的审计往往也是规定好时间的，我们没法无限制的了解审计组件的代码和功能，只能做出一些妥协。</p>
+<p>假如你发花五天来审计一个大型系统，你在最开始就要想好，如何分配时间，往往有下面几点：</p>
+<ul>
+<li>了解功能和架构</li>
+<li>列出攻击面</li>
+<li>攻击面审计</li>
+<li>漏洞poc和调试</li>
+</ul>
+<p>高手往往计划成竹在胸，他们会尽量对每一块攻击面都尽量进行测试，<strong>迅速舍弃不可用的点</strong>。（我问他们怎么这么判断这个数据流不行的，他们说之前调试过。 所以说还是更多源于经验）</p>
+<h2 id="喜新厌旧">喜新厌旧</h2>
+<p>相对于一个曾经见过的系统，对一个全新的没见过的系统，我往往更感兴趣（大概这就是渣男吧）。</p>
+<p>但是旧系统往往能发现更多的漏洞。即使你觉得你已经花了时间来进行过代码审计，你觉得没法发现更多问题了。</p>
+<p>如果这时其他人在其中发现了漏洞，你往往会觉得沮丧（原来我这么菜吗，怎么我花了这么多时间发现不了漏洞，别人还能发现）</p>
+<p>这时候你可能不想去复现别人发现的漏洞了，因为这可能会加深你对自己无能的认知。</p>
+<p>这种心态更像是傲慢，切忌存在这种心态。</p>
+<p>代码常看常新，肯定会存在没看到的点，这时候复现漏洞查漏补缺是最好的学习方法。</p>
+<h2 id="心态">心态</h2>
+<p>审计一个系统一段时间了， 还没发现漏洞怎么办。 这时候有可能会心态崩溃，主要表现有转向寻找低危漏洞，甚至破罐子破摔：鸟系统，老子不看了。</p>
+<p>由于这个行业的长期kpi特性： 没人会在你没法发现一个系统的漏洞时苛责你，但是会在你半年没发现漏洞时责问你。</p>
+<p>很可能你这次的放弃没人能发现，但是对自己的技能提升是不妙的。</p>
+<p>面对这种情况，转换一段时间的视角往往有效，例如重新去试下功能，总体再梳理攻击面，试试新的扫描器等等。</p>
+<p>最重要的是稳住心态。</p>
+<h2 id="总结">总结</h2>
+<p>标题写的是如何成为一个代码审计机器人，其实只要稳住心态，循着有用的方法论去审计代码，就能成为一个无情的挖漏洞机器了。</p>
+<p>稳住心态，多看代码，总能发现漏洞，诸君共勉。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ssspallow</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-08-26
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/jackson%E5%92%8Cjava%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+            <span class="next-text nav-default">jackson和java原生反序列化</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://www.nomuggle.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>ssspallow</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

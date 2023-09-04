@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>代码审计 on NoMuggle - To record my tech and my life</title>
+    <link>https://www.nomuggle.com/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</link>
+    <description>Recent content in 代码审计 on NoMuggle - To record my tech and my life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>ssspallow</copyright>
+    <lastBuildDate>Sat, 26 Aug 2023 23:30:00 +0800</lastBuildDate><atom:link href="https://www.nomuggle.com/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何当一个代码审计机器人</title>
+      <link>https://www.nomuggle.com/post/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</link>
+      <pubDate>Sat, 26 Aug 2023 23:30:00 +0800</pubDate>
+      
+      <guid>https://www.nomuggle.com/post/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</guid>
+      <description>背景 藏在笔记里面很久的一篇总结了，记录了大佬们在吭呲吭呲产出高危漏洞时， 我对着代码不知所措时的心态。 强烈的驱动力 要全面理解一个系统，理解其攻</description>
+    </item>
+    
+  </channel>
+</rss>
